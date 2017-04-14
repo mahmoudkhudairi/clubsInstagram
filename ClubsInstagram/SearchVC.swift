@@ -53,7 +53,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         cell.textLabel?.text = user.name
         
         if let profileImageUrl = user.profileImageUrl {
-          // cell.imageView?.image = UIImage(named: "uploadImage") //this was for testing it work
+          // cell.imageView?.image = UIImage(named: "uploadImage") //this was for testing it work/
             cell.imageView?.loadImageUsingCacheWithUrlString(profileImageUrl)//this is not showing images!!
         }
         
