@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FML-aJ-xt1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -170,7 +170,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mIn-Qb-huQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="725.60000000000002" y="123.68815592203899"/>
+            <point key="canvasLocation" x="644" y="124"/>
         </scene>
         <!--Profile-->
         <scene sceneID="MWY-yW-tOm">
@@ -411,15 +411,15 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" textLabel="ZCr-dN-qz8" style="IBUITableViewCellStyleDefault" id="1Is-Zf-Zb4">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendsCell" textLabel="ZCr-dN-qz8" style="IBUITableViewCellStyleDefault" id="1Is-Zf-Zb4">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Is-Zf-Zb4" id="9b9-bB-hDn">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZCr-dN-qz8">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -447,6 +447,10 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" id="Bny-Bb-2hP"/>
+                    <connections>
+                        <outlet property="friendsSearchBar" destination="hnj-6s-CnF" id="fed-H6-T0p"/>
+                        <outlet property="friendsTableView" destination="d9h-ly-ZC0" id="l7X-hR-bFs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDs-SG-ESu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -462,15 +466,15 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="dgj-OA-ziw" kind="relationship" relationship="viewControllers" id="eTw-M4-GkS"/>
                         <segue destination="FML-aJ-xt1" kind="relationship" relationship="viewControllers" id="bFT-gC-muz"/>
                         <segue destination="9DM-1S-Rv7" kind="relationship" relationship="viewControllers" id="V7c-n1-Kb6"/>
-                        <segue destination="dgj-OA-ziw" kind="relationship" relationship="viewControllers" id="eTw-M4-GkS"/>
                         <segue destination="o7f-np-0cA" kind="relationship" relationship="viewControllers" id="egp-Mu-ZOu"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="364-KL-vpi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1401" y="124"/>
+            <point key="canvasLocation" x="1524" y="124"/>
         </scene>
         <!--Home-->
         <scene sceneID="YV7-6p-JN1">

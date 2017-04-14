@@ -22,6 +22,7 @@
 		247AFFC01EA0CC2000C8A9E9 /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 247AFFBE1EA0CC2000C8A9E9 /* PostCell.xib */; };
 		247AFFC41EA0D14200C8A9E9 /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247AFFC31EA0D14200C8A9E9 /* EditVC.swift */; };
 		247AFFC61EA0DB7A00C8A9E9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247AFFC51EA0DB7A00C8A9E9 /* Extensions.swift */; };
+		247AFFC81EA0FA9900C8A9E9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247AFFC71EA0FA9900C8A9E9 /* User.swift */; };
 		DB912319E96755F51B639CB0 /* Pods_ClubsInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86D9315FF655BDCB9B0223E /* Pods_ClubsInstagram.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		247AFFBE1EA0CC2000C8A9E9 /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		247AFFC31EA0D14200C8A9E9 /* EditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
 		247AFFC51EA0DB7A00C8A9E9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		247AFFC71EA0FA9900C8A9E9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		48F198D04A453AFCB3D5D3E6 /* Pods-ClubsInstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubsInstagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubsInstagram/Pods-ClubsInstagram.debug.xcconfig"; sourceTree = "<group>"; };
 		C86D9315FF655BDCB9B0223E /* Pods_ClubsInstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubsInstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 		247AFFC21EA0CC3800C8A9E9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				247AFFC71EA0FA9900C8A9E9 /* User.swift */,
 				247AFFC51EA0DB7A00C8A9E9 /* Extensions.swift */,
 			);
 			name = Model;
@@ -278,6 +281,7 @@
 				247AFF9D1EA0BD8C00C8A9E9 /* AppDelegate.swift in Sources */,
 				247AFFBC1EA0CAC600C8A9E9 /* UploadVC.swift in Sources */,
 				247AFFBF1EA0CC2000C8A9E9 /* PostCell.swift in Sources */,
+				247AFFC81EA0FA9900C8A9E9 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
