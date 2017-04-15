@@ -42,10 +42,11 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
 let imageCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
-    
+   
     func loadImageUsingCacheWithUrlString(_ urlString: String) {
-        
-        self.image = nil
+      
+    
+       self.image = nil //it wasn't working before that !!
         
         //check cache for image first
         if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {

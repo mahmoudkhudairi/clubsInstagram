@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class LoginVC: UIViewController {
 
     @IBOutlet weak var passwordTextField: UITextField!
@@ -22,8 +22,24 @@ class LoginVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func handleLogin(){
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            print("Form is not valid")
+            return
+        }
+        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, err) in
+            if  err != nil {
+                print(err ?? "")
+                return
+            }
+            
+        })
+    }
     @IBAction func logInButtonTapped(_ sender: Any) {
+        handleLogin()
+        let Controller = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
+        present(Controller!, animated: true, completion: nil)
+
     }
 
     @IBAction func SignUpButtonTapped(_ sender: Any) {

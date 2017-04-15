@@ -48,16 +48,19 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath)
-        print("Im here")
+       
         let user = users[indexPath.row]
         cell.textLabel?.text = user.name
         
         if let profileImageUrl = user.profileImageUrl {
-          // cell.imageView?.image = UIImage(named: "uploadImage") //this was for testing it work/
+         print("userImage: ",user.profileImageUrl ?? "")
+//            cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.height)!/2
+//            cell.imageView?.layer.masksToBounds = true
             cell.imageView?.loadImageUsingCacheWithUrlString(profileImageUrl)//this is not showing images!!
         }
         
         return cell
     }
+   
     
 }
