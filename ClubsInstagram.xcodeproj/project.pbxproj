@@ -25,6 +25,7 @@
 		247AFFC81EA0FA9900C8A9E9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247AFFC71EA0FA9900C8A9E9 /* User.swift */; };
 		24FF8F0B1EA2031A008A38D2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF8F091EA2031A008A38D2 /* FriendCell.swift */; };
 		24FF8F0C1EA2031A008A38D2 /* FriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */; };
+		24FF8F0E1EA21612008A38D2 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF8F0D1EA21612008A38D2 /* AuthController.swift */; };
 		DB912319E96755F51B639CB0 /* Pods_ClubsInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86D9315FF655BDCB9B0223E /* Pods_ClubsInstagram.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		247AFFC71EA0FA9900C8A9E9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		24FF8F091EA2031A008A38D2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendCell.xib; sourceTree = "<group>"; };
+		24FF8F0D1EA21612008A38D2 /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		48F198D04A453AFCB3D5D3E6 /* Pods-ClubsInstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubsInstagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubsInstagram/Pods-ClubsInstagram.debug.xcconfig"; sourceTree = "<group>"; };
 		C86D9315FF655BDCB9B0223E /* Pods_ClubsInstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubsInstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -128,6 +130,7 @@
 		247AFFC21EA0CC3800C8A9E9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				24FF8F0D1EA21612008A38D2 /* AuthController.swift */,
 				247AFFC71EA0FA9900C8A9E9 /* User.swift */,
 				247AFFC51EA0DB7A00C8A9E9 /* Extensions.swift */,
 			);
@@ -282,6 +285,7 @@
 				247AFFC41EA0D14200C8A9E9 /* EditVC.swift in Sources */,
 				247AFFB81EA0CA9200C8A9E9 /* ProfileVC.swift in Sources */,
 				247AFFB61EA0C74C00C8A9E9 /* FeedVC.swift in Sources */,
+				24FF8F0E1EA21612008A38D2 /* AuthController.swift in Sources */,
 				247AFFB11EA0C6F400C8A9E9 /* LoginVC.swift in Sources */,
 				247AFFC61EA0DB7A00C8A9E9 /* Extensions.swift in Sources */,
 				247AFFB31EA0C71100C8A9E9 /* SignUpVC.swift in Sources */,

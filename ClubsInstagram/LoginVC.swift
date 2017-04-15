@@ -27,13 +27,10 @@ class LoginVC: UIViewController {
             print("Form is not valid")
             return
         }
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, err) in
-            if  err != nil {
-                print(err ?? "")
-                return
-            }
-            
-        })
+        let fireLogin = AuthController()
+        
+        fireLogin.login(email: email, password: password)
+        
     }
     @IBAction func logInButtonTapped(_ sender: Any) {
         handleLogin()
