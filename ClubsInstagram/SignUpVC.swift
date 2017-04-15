@@ -12,11 +12,13 @@ import Firebase
 class SignUpVC: UIViewController {
 
     @IBOutlet weak var pictureImageView: UIImageView!
-    
- 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    var ref: FIRDatabaseReference!
+ 
+   
     
     
     override func viewDidLoad() {
@@ -24,19 +26,25 @@ class SignUpVC: UIViewController {
         handleImage()
         
     }
+    
     func handleImage(){
-        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseProfileImage))
+        
         pictureImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseProfileImage))
         pictureImageView.addGestureRecognizer(tap)
+        
     }
+    
     func chooseProfileImage(){
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
         present(picker, animated: true, completion: nil)
     }
+    
     @IBAction func signUpButtonTapped(_ sender: Any) {
-        guard let email = emailTextField.text, let password = passwordTextField.text,
+        guard let email = emailTextField.text,
+            let password = passwordTextField.text,
             let name = nameTextField.text else {return}
         
         if email == "" || password == "" || name == ""
@@ -45,70 +53,57 @@ class SignUpVC: UIViewController {
             return
         }
         
-       
-        
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
+        FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
             
             if error != nil {
-                print("Error in signin: \(error)")
+                print("Error signup \(error)")
                 return
             }
             
+            guard let user = user
+                else {
+                    print("User does not exist")
+                    return
+            }
+
             
-            guard let uid = user?.uid else {return}
-            //save the user
             let imageName = NSUUID().uuidString
             let storageRef = FIRStorage.storage().reference().child("\(imageName).jpeg")
+            let image = self.pictureImageView.image
+            guard let imageData = UIImageJPEGRepresentation(image!, 0.4) else { return }
             
-             let image = self.pictureImageView.image
-                 guard let imageData = UIImageJPEGRepresentation(image!, 0.5) else { return }
             
-           
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpeg"
             storageRef.put(imageData, metadata: metaData, completion: { (metadata, error) in
                 
                 if error != nil {
-                    print("Image error: \(error)")
+                    print("error saving image \(error)")
                     return
                 }
                 
                 if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                    let userName = user?.email
-                    let values = ["email": userName, "name": name, "profileImageUrl": profileImageUrl]
-                    self.registerUserIntoDataBase(uid, values: values as [String : AnyObject])
-                }
                 
+                let values : [String : String] = ["email": user.email!, "name": user.displayName!, "imageUrl": profileImageUrl]
+                
+                self.ref.child("users").child("\(user.uid)").updateChildValues(values)
+                }
+        
             })
-        })
-        
-        let Controller = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
-        present(Controller!, animated: true, completion: nil)
-        
+    
+            self.goToFeedVC()
+        }
  
-        
     }
     
-    
-    func registerUserIntoDataBase(_ uid: String, values: [String: Any]) {
-        let ref = FIRDatabase.database().reference(fromURL: "https://clubsinstagram.firebaseio.com/")
-        let usersReference = ref.child("users").child(uid)
-        
-        usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
-            
-            if err != nil {
-                print("Error saving user: \(err)")
-                return
-            }
-            
-            
-            
-        })
-        
-        
+    func goToFeedVC() {
+        if let feedController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") {
+            present(feedController, animated: true, completion: nil)
+        }
     }
-
     
     
 }
+
+
 
