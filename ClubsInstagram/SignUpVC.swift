@@ -93,7 +93,7 @@ class SignUpVC: UIViewController {
     }
     
     private func registerUserIntoDataBase(_ uid: String, values: [String: Any]) {
-        let ref = FIRDatabase.database().reference(fromURL: "https://fir-chat-49a54.firebaseio.com/")
+        let ref = FIRDatabase.database().reference(fromURL: "https://clubsinstagram.firebaseio.com/")
         let usersReference = ref.child("users").child(uid)
         
         usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in

@@ -18,9 +18,9 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
         if FIRAuth.auth()?.currentUser != nil {
             print("Some user is already logged in")
-            if let tabBarController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") {
-            present(tabBarController, animated: true, completion: nil)
-            }
+            let goToFeed = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
+            present(goToFeed!, animated: true, completion: nil)
+            
         }
     }
 
