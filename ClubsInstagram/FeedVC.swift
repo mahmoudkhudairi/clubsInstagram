@@ -41,10 +41,13 @@ class FeedVC: UIViewController {
         
         do {
             try FIRAuth.auth()?.signOut()
+           
         } catch let logoutError {
             print(logoutError)
         }
+        guard let loginController = storyboard?.instantiateViewController(withIdentifier: "LoginVC")else{return}
         
+        present(loginController, animated: true, completion: nil)
         
       
     }

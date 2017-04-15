@@ -42,11 +42,15 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
 let imageCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
-   
+    func circlerImage(){
+               self.layer.cornerRadius = self.frame.height/2
+                   self.layer.masksToBounds = true
+        
+    }
     func loadImageUsingCacheWithUrlString(_ urlString: String) {
       
     
-       self.image = nil //it wasn't working before that !!
+       //self.image = nil //it wasn't working before that !!
         
         //check cache for image first
         if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {

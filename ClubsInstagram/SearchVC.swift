@@ -11,7 +11,11 @@ import Firebase
 class SearchVC: UIViewController {
 var users = [User]()
     @IBOutlet weak var friendsSearchBar: UISearchBar!
-    @IBOutlet weak var friendsTableView: UITableView!
+    @IBOutlet weak var friendsTableView: UITableView!{
+        didSet{
+         friendsTableView.register(FriendCell.cellNib, forCellReuseIdentifier: FriendCell.cellIdentifier)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 fetchUser()
@@ -45,22 +49,26 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return users.count
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellIdentifier, for: indexPath) as? FriendCell else {  return UITableViewCell()}
        
         let user = users[indexPath.row]
-        cell.textLabel?.text = user.name
+        cell.userNameLabel.text = user.name
         
         if let profileImageUrl = user.profileImageUrl {
          print("userImage: ",user.profileImageUrl ?? "")
-//            cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.height)!/2
-//            cell.imageView?.layer.masksToBounds = true
-            cell.imageView?.loadImageUsingCacheWithUrlString(profileImageUrl)//this is not showing images!!
+ 
+            cell.userImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+            cell.userImageView.circlerImage()
         }
         
         return cell
     }
+        
    
     
 }

@@ -12,6 +12,8 @@ import Firebase
 class SignUpVC: UIViewController {
 
     @IBOutlet weak var pictureImageView: UIImageView!
+    
+ 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -19,10 +21,20 @@ class SignUpVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        handleImage()
         
     }
-
+    func handleImage(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseProfileImage))
+        pictureImageView.isUserInteractionEnabled = true
+        pictureImageView.addGestureRecognizer(tap)
+    }
+    func chooseProfileImage(){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
     @IBAction func signUpButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text, let password = passwordTextField.text,
             let name = nameTextField.text else {return}
@@ -70,6 +82,10 @@ class SignUpVC: UIViewController {
             })
         })
         
+        let Controller = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
+        present(Controller!, animated: true, completion: nil)
+        
+ 
         
     }
     
@@ -84,9 +100,6 @@ class SignUpVC: UIViewController {
                 print("Error saving user: \(err)")
                 return
             }
-            
-            
-            self.dismiss(animated: true, completion: nil)
             
             
             
