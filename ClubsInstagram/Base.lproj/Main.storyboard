@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="svj-ke-0hm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -370,40 +370,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4LN-Tw-4tn">
-                                <rect key="frame" x="0.0" y="28" width="375" height="275"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tapmeimage" translatesAutoresizingMaskIntoConstraints="NO" id="4LN-Tw-4tn">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FOh-zc-OQ8">
-                                <rect key="frame" x="0.0" y="324" width="375" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FOh-zc-OQ8">
+                                <rect key="frame" x="0.0" y="199" width="375" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="F9W-7M-5cd"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33j-yR-dZi">
-                                <rect key="frame" x="121" y="546" width="133" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="133" id="X5J-QU-zyf"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33j-yR-dZi">
+                                <rect key="frame" x="121" y="510" width="133" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Upload"/>
+                                <connections>
+                                    <action selector="UploadButtonTapped:" destination="9DM-1S-Rv7" eventType="touchUpInside" id="gSx-x2-p3V"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="FOh-zc-OQ8" firstAttribute="centerX" secondItem="33j-yR-dZi" secondAttribute="centerX" id="1vL-CO-V29"/>
-                            <constraint firstAttribute="trailing" secondItem="4LN-Tw-4tn" secondAttribute="trailing" id="2pC-ZD-SL2"/>
-                            <constraint firstItem="4LN-Tw-4tn" firstAttribute="leading" secondItem="FOh-zc-OQ8" secondAttribute="leading" id="9Ac-YR-adB"/>
-                            <constraint firstItem="3Qd-Hl-Vtp" firstAttribute="top" secondItem="33j-yR-dZi" secondAttribute="bottom" constant="42" id="FAX-XC-fbk"/>
-                            <constraint firstItem="4LN-Tw-4tn" firstAttribute="top" secondItem="IRK-uY-hOE" secondAttribute="bottom" constant="8" symbolic="YES" id="HEc-S6-IJo"/>
-                            <constraint firstItem="4LN-Tw-4tn" firstAttribute="leading" secondItem="3Ta-RZ-aAM" secondAttribute="leading" id="OuB-3E-9Ho"/>
-                            <constraint firstItem="FOh-zc-OQ8" firstAttribute="top" secondItem="4LN-Tw-4tn" secondAttribute="bottom" constant="21" id="QuZ-8Q-E41"/>
-                            <constraint firstItem="4LN-Tw-4tn" firstAttribute="trailing" secondItem="FOh-zc-OQ8" secondAttribute="trailing" id="ZXy-1N-3XC"/>
-                            <constraint firstItem="33j-yR-dZi" firstAttribute="top" secondItem="FOh-zc-OQ8" secondAttribute="bottom" constant="94" id="tu2-FU-sZx"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Upload" id="ESe-Av-MLd"/>
+                    <connections>
+                        <outlet property="UploadButton" destination="33j-yR-dZi" id="ZGc-sE-soq"/>
+                        <outlet property="captionTextView" destination="FOh-zc-OQ8" id="83w-XX-KA7"/>
+                        <outlet property="photoImageView" destination="4LN-Tw-4tn" id="Beq-5J-HH9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zqR-Vk-a9B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -497,6 +491,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="A0W-Dn-7fs"/>
+                    <connections>
+                        <outlet property="postsTableView" destination="Ikg-Ht-lp7" id="bIn-3r-KHA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uZ1-3N-vRW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -505,6 +502,7 @@
     </scenes>
     <resources>
         <image name="instagram-word" width="584" height="165"/>
+        <image name="tapmeimage" width="300" height="150"/>
         <image name="uploadImage" width="500" height="612"/>
     </resources>
 </document>
