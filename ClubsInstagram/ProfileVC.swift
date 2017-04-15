@@ -24,13 +24,14 @@ class ProfileVC: UIViewController {
     @IBAction func logoutButtonPressed(_ sender: Any) {
         do {
             try FIRAuth.auth()?.signOut()
+            guard let loginController = storyboard?.instantiateViewController(withIdentifier: "LoginVC")else{return}
+            
+            present(loginController, animated: true, completion: nil)
+    
         } catch let logoutError {
             print(logoutError)
         }
         
-        guard let loginController = storyboard?.instantiateViewController(withIdentifier: "LoginVC")else{return}
-        
-        present(loginController, animated: true, completion: nil)
     
     }
 

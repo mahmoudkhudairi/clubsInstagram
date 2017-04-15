@@ -53,24 +53,21 @@ class SignUpVC: UIViewController {
             return
         }
         
-        FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
+        
+        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
             if error != nil {
-                print("Error signup \(error)")
+                print("Error in signin: \(error)")
                 return
             }
             
-            guard let user = user
-                else {
-                    print("User does not exist")
-                    return
-            }
-
             
+            guard let uid = user?.uid else {return}
+            //save the user
             let imageName = NSUUID().uuidString
             let storageRef = FIRStorage.storage().reference().child("\(imageName).jpeg")
             let image = self.pictureImageView.image
-            guard let imageData = UIImageJPEGRepresentation(image!, 0.4) else { return }
+            guard let imageData = UIImageJPEGRepresentation(image!, 0.5) else { return }
             
             
             let metaData = FIRStorageMetadata()
@@ -78,23 +75,42 @@ class SignUpVC: UIViewController {
             storageRef.put(imageData, metadata: metaData, completion: { (metadata, error) in
                 
                 if error != nil {
-                    print("error saving image \(error)")
+                    print("Image error: \(error)")
                     return
                 }
                 
                 if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                
-                let values : [String : String] = ["email": user.email!, "name": user.displayName!, "imageUrl": profileImageUrl]
-                
-                self.ref.child("users").child("\(user.uid)").updateChildValues(values)
+                    let userName = user?.email
+                    let values = ["email": userName, "name": name, "profileImageUrl": profileImageUrl]
+                    self.registerUserIntoDataBase(uid, values: values)
                 }
-        
+                
             })
-    
+            
             self.goToFeedVC()
-        }
- 
+        })
+
     }
+    
+    private func registerUserIntoDataBase(_ uid: String, values: [String: Any]) {
+        let ref = FIRDatabase.database().reference(fromURL: "https://fir-chat-49a54.firebaseio.com/")
+        let usersReference = ref.child("users").child(uid)
+        
+        usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            
+            if err != nil {
+                print("Error saving user: \(err)")
+                return
+            }
+            
+            
+            self.dismiss(animated: true, completion: nil)
+
+        })
+        
+        
+    }
+
     
     func goToFeedVC() {
         if let feedController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") {
