@@ -87,7 +87,8 @@ class SignUpVC: UIViewController {
                 
             })
             
-            self.goToFeedVC()
+              self.performSegue(withIdentifier: "toFeedVC", sender: nil)
+            //self.goToFeedVC()
         })
 
     }
@@ -104,7 +105,7 @@ class SignUpVC: UIViewController {
             }
             
             
-            self.dismiss(animated: true, completion: nil)
+           // self.dismiss(animated: true, completion: nil)
 
         })
         
@@ -112,11 +113,11 @@ class SignUpVC: UIViewController {
     }
 
     
-    func goToFeedVC() {
-        if let feedController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") {
-            present(feedController, animated: true, completion: nil)
-        }
-    }
+//    func goToFeedVC() {
+//        if let feedController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") {
+//            present(feedController, animated: true, completion: nil)
+//        }
+//    }
     
     
 }
