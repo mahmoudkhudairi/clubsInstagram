@@ -9,7 +9,8 @@
 import UIKit
 import Firebase
 class UploadVC: UIViewController {
-
+    var userName = ""
+    var userProfilePicture = ""
     @IBOutlet weak var UploadButton: UIButton!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var photoImageView: UIImageView!
@@ -18,13 +19,17 @@ class UploadVC: UIViewController {
        
         handleImage()
     }
+    func fetchUser() {
+     
+   
+    }
     
     @IBAction func UploadButtonTapped(_ sender: Any) {
     
        
        
         
-            guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
+          //  guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
         
             let imageName = NSUUID().uuidString
             let storageRef = FIRStorage.storage().reference().child("postsImages").child("\(imageName).jpeg")
@@ -44,16 +49,30 @@ class UploadVC: UIViewController {
                 
                 if let pohtoImageUrl = metadata?.downloadURL()?.absoluteString,
                     let captionText = self.captionTextView.text {
-                    
-                    let values = ["caption": captionText, "userId": userUid, "postImageUrl": pohtoImageUrl]
-                    self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
+                    guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
+                    FIRDatabase.database().reference().child("users").child(userUid).observe(.value, with: { (snapshot) in
+                        
+                        if let dictionary = snapshot.value as? [String: AnyObject] {
+                            let user = User(dictionary: dictionary)
+                            user.id = snapshot.key
+                            guard let username = user.name,
+                            let pic = user.profileImageUrl else{return}
+                             self.userName = username
+                             self.userProfilePicture = pic
+                         
+                        }
+                        let values = ["caption": captionText, "userId": userUid, "postImageUrl": pohtoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture]
+                        self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
+                        
+                    }, withCancel: nil)
+                   
+                   
                 }
                 
             })
         
-        
-        let Controller = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
-        present(Controller!, animated: true, completion: nil)
+        self.tabBarController?.selectedIndex = 0
+
         
         
     }

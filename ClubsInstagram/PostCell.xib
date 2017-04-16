@@ -16,10 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="449.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadImage" translatesAutoresizingMaskIntoConstraints="NO" id="7q7-j5-CEl">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7q7-j5-CEl">
                         <rect key="frame" x="8" y="8" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="cTC-1i-i6i"/>
@@ -28,9 +28,9 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbS-7c-zdd">
-                        <rect key="frame" x="73" y="23" width="97" height="21"/>
+                        <rect key="frame" x="73" y="23" width="239" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="97" id="Zt0-vP-igy"/>
+                            <constraint firstAttribute="width" constant="239" id="Zt0-vP-igy"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -112,6 +112,5 @@
     <resources>
         <image name="comment" width="128" height="119"/>
         <image name="empty-heart" width="70" height="70"/>
-        <image name="uploadImage" width="500" height="612"/>
     </resources>
 </document>

@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 class FeedVC: UIViewController {
     var posts = [Post]()
-    
     @IBOutlet weak var postsTableView: UITableView!{
          didSet{
          postsTableView.register(PostCell.cellNib, forCellReuseIdentifier: PostCell.cellIdentifier)
@@ -32,7 +31,7 @@ class FeedVC: UIViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let post = Post(dictionary: dictionary)
                 post.id = snapshot.key
-                
+               
                 self.posts.append(post)
                 
                 
@@ -44,8 +43,6 @@ class FeedVC: UIViewController {
             
         }, withCancel: nil)
     }
-    
-
 }
 extension FeedVC: UITableViewDelegate,UITableViewDataSource{
     
@@ -60,8 +57,11 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.cellIdentifier, for: indexPath) as? PostCell else {  return UITableViewCell()}
         
         let post = posts[indexPath.row]
-        cell.userNameLabel.text = "username"
-        // cell.userProfileImageView =
+        
+        cell.userNameLabel.text = post.userName
+        if let userProfileImageUrl = post.userProfileImageUrl {
+            cell.userProfileImageView.loadImageUsingCacheWithUrlString(userProfileImageUrl)
+        }
         
         if let postImageUrl = post.postImageUrl {
             cell.postImage.loadImageUsingCacheWithUrlString(postImageUrl)
