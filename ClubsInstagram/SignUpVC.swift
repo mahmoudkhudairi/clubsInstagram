@@ -89,15 +89,11 @@ class SignUpVC: UIViewController {
                 return
             }
             
-<<<<<<< HEAD
-            
-           // self.dismiss(animated: true, completion: nil)
 
-=======
             let initController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
             ad.window?.rootViewController = initController
          
->>>>>>> AuthTesting
+
         })
     }
     
