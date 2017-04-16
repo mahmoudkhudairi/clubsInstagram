@@ -104,7 +104,7 @@ class SignUpVC: UIViewController {
             }
             
             
-            self.dismiss(animated: true, completion: nil)
+           // self.dismiss(animated: true, completion: nil)
 
         })
         
