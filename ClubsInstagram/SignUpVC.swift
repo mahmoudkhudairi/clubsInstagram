@@ -43,81 +43,57 @@ class SignUpVC: UIViewController {
     }
     
     @IBAction func signUpButtonTapped(_ sender: Any) {
-        guard let email = emailTextField.text,
-            let password = passwordTextField.text,
-            let name = nameTextField.text else {return}
-        
-        if email == "" || password == "" || name == ""
-        {
-            print("Email or password is empty")
+        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
+            print("Form is not valid")
             return
         }
-        
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
             if error != nil {
-                print("Error in signin: \(error)")
+                print(error!)
                 return
             }
             
+            guard let uid = user?.uid else {
+                return
+            }
             
-            guard let uid = user?.uid else {return}
-            //save the user
-            let imageName = NSUUID().uuidString
-            let storageRef = FIRStorage.storage().reference().child("\(imageName).jpeg")
-            let image = self.pictureImageView.image
-            guard let imageData = UIImageJPEGRepresentation(image!, 0.5) else { return }
+            //successfully authenticated user
+            let imageName = UUID().uuidString
+            let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
             
-            
-            let metaData = FIRStorageMetadata()
-            metaData.contentType = "image/jpeg"
-            storageRef.put(imageData, metadata: metaData, completion: { (metadata, error) in
-                
-                if error != nil {
-                    print("Image error: \(error)")
-                    return
-                }
-                
-                if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                    let userName = user?.email
-                    let values = ["email": userName, "name": name, "profileImageUrl": profileImageUrl]
-                    self.registerUserIntoDataBase(uid, values: values)
-                }
-                
-            })
-            
-              self.performSegue(withIdentifier: "toFeedVC", sender: nil)
-            //self.goToFeedVC()
+            if let profileImage = self.pictureImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.1) {
+                storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
+                    if error != nil {
+                        print(error!)
+                        return
+                    }
+                    if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
+                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl]
+                        self.registerUserIntoDatabaseWithUID(uid, values: values as [String : AnyObject])
+                    }
+                })
+            }
         })
-
     }
     
-    private func registerUserIntoDataBase(_ uid: String, values: [String: Any]) {
-        let ref = FIRDatabase.database().reference(fromURL: "https://clubsinstagram.firebaseio.com/")
+    private func registerUserIntoDatabaseWithUID(_ uid: String, values: [String: AnyObject]) {
+        let ref = FIRDatabase.database().reference()
         let usersReference = ref.child("users").child(uid)
         
         usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
             
             if err != nil {
-                print("Error saving user: \(err)")
+                print(err!)
                 return
             }
             
-            
-           // self.dismiss(animated: true, completion: nil)
-
+            let initController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
+            ad.window?.rootViewController = initController
+         
         })
-        
-        
     }
-
-    
-//    func goToFeedVC() {
-//        if let feedController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") {
-//            present(feedController, animated: true, completion: nil)
-//        }
-//    }
     
     
 }

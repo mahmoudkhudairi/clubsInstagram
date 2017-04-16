@@ -15,13 +15,7 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-//        if FIRAuth.auth()?.currentUser != nil {
-//            print("Some user is already logged in")
-//            let goToFeed = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
-//            present(goToFeed!, animated: true, completion: nil)
-//            
-//        }
+
     }
 
   
@@ -29,29 +23,6 @@ class LoginVC: UIViewController {
     
     
     @IBAction func logInButtonTapped(_ sender: Any) {
-//        guard let email = emailTextField.text,
-//            let password = passwordTextField.text else { return }
-//        if email == "" || password == "" {
-//            print("Can't be blank")
-//        }
-//        
-//        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
-//            
-//            if let err = error {
-//                print("Error signing in \(err.localizedDescription)")
-//                return
-//            }
-//            
-//            guard let user = user else {
-//                print("User error")
-//                return
-//            }
-//            
-//            print("User: \(user) successfully logged-in")
-//            self.goToFeedVC()
-//            
-//        })
-        
         if emailTextField.text != "" && passwordTextField.text != "" {
             
             FIRAuth.auth()?.signIn(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
@@ -62,10 +33,7 @@ class LoginVC: UIViewController {
                 alert.addAction(ok)
                 self.present(alert, animated: true, completion: nil)
             } else {
-                    UserDefaults.standard.set(user!.email, forKey: "userinfo")
-                    UserDefaults.standard.synchronize()
-                
-
+                    
                 self.goToFeedVC()
                 
                 }
