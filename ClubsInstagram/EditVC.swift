@@ -7,29 +7,124 @@
 //
 
 import UIKit
+import Firebase
 
 class EditVC: UIViewController {
+    
+    var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
+    var currentUserID : String = ""
+    var ref : FIRDatabaseReference!
+    var profileImageUrl : String = ""
+    var profileName : String = ""
+    var profileDesc : String = ""
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    @IBOutlet weak var nameTextField: UITextField!
 
+    @IBOutlet weak var descTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = FIRDatabase.database().reference()
+        handleImage()
+        if let id = currentUser?.uid {
+            print("Current user id: \(id)")
+            currentUserID = id
+        }
+        
+        listenToFireBase()
 
-        // Do any additional setup after loading the view.
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func handleImage(){
+        
+        profileImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseProfileImage))
+        profileImageView.addGestureRecognizer(tap)
+        
     }
-    */
+    
+    func chooseProfileImage(){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
 
+    
+    func loadProfile() {
+        nameTextField.text = profileName
+        descTextView.text = profileDesc
+        
+        let imageUrl = profileImageUrl
+        profileImageView.loadImageUsingCacheWithUrlString(imageUrl)
+        
+    }
+    
+    
+    @IBAction func updateButtonPressed(_ sender: Any) {
+        let updatedProfileName = nameTextField.text
+        let updatedProfileDesc = descTextView.text
+        //let updatedImageUrl = #imageLiteral(resourceName: "filled-heart")
+        
+        
+        let values : [String : Any] = ["name": updatedProfileName ?? "User", "desc": updatedProfileDesc ?? "Add a Description"]
+        ref.child("users").child("\(currentUserID)").updateChildValues(values)
+        
+    }
+    
+    func uploadImage(_ image: UIImage) {
+        
+        let ref = FIRStorage.storage().reference()
+        guard let imageData = UIImageJPEGRepresentation(image, 0.5) else {return}
+        let metaData = FIRStorageMetadata()
+        metaData.contentType = "image/jpeg"
+        ref.child("\(currentUser?.email)").put(imageData, metadata: metaData) { (meta, error) in
+            
+            if let downloadPath = meta?.downloadURL()?.absoluteString {
+                //save to firebase database
+                self.saveImagePath(downloadPath)
+                
+                print("")
+            }
+            
+        }
+        
+        
+    }
+    
+    func saveImagePath(_ path: String) {
+        
+        let profilePictureValue : [String: Any] = ["profileImageUrl": path]
+        
+        ref.child("users").child(currentUserID).updateChildValues(profilePictureValue)
+    }
+    
+    func listenToFireBase() {
+        ref.child("users").child(currentUserID).observe(.value, with: { (snapshot) in
+            print("Value : ", snapshot)
+            
+            let dictionary = snapshot.value as? [String : String]
+            
+            
+            
+            self.profileDesc = (dictionary?["desc"])!
+            self.profileName = (dictionary?["name"])!
+            self.profileImageUrl = (dictionary?["profileImageUrl"])!
+            
+            self.loadProfile()
+        })
+        
+    }
+
+    
 }
+
+
+

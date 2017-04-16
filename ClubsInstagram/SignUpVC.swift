@@ -70,7 +70,7 @@ class SignUpVC: UIViewController {
                         return
                     }
                     if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl]
+                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl, "desc": "Say something about yourself"]
                         self.registerUserIntoDatabaseWithUID(uid, values: values as [String : AnyObject])
                     }
                 })

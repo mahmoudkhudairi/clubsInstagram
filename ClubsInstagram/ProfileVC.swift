@@ -9,16 +9,48 @@
 import UIKit
 import Firebase
 class ProfileVC: UIViewController {
+    
+    var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
+    var currentUserID : String = ""
+    var ref : FIRDatabaseReference!
+    var profileName : String = ""
+    var profileDesc : String = ""
+    var profileImage : String = ""
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ref = FIRDatabase.database().reference()
+        if let id = currentUser?.uid {
+            print("Current user: \(id)")
+            currentUserID = id
+        }
+        
+        listenToFirebase()
 
-        // Do any additional setup after loading the view.
+       
+    }
+    
+    func setUpProfile() {
+        
+        nameLabel.text = profileName
+        descLabel.text = profileDesc
+        
+        let profileURL = profileImage
+        profileImageView.loadImageUsingCacheWithUrlString(profileURL)
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+   
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
@@ -29,7 +61,7 @@ class ProfileVC: UIViewController {
             guard let loginController = storyboard?.instantiateViewController(withIdentifier: "LoginVC")else{return}
            
             ad.window?.rootViewController = loginController
-            //present(loginController, animated: true, completion: nil)
+          
     
         } catch let logoutError {
             print(logoutError)
@@ -37,6 +69,34 @@ class ProfileVC: UIViewController {
         
     
     }
+    
+    @IBAction func editProfileButtonPressed(_ sender: Any) {
+        
+        if let editController = storyboard?.instantiateViewController(withIdentifier: "EditVC") {
+            present(editController, animated: true, completion: nil)
+        }
+        
+        
+    }
+    
+    func listenToFirebase() {
+        ref.child("users").child(currentUserID).observe(.value, with: { (snapshot) in
+            print("Value : " , snapshot)
+            
+            let dictionary = snapshot.value as? [String: String]
+            
+            self.profileName = (dictionary? ["name"])!
+            self.profileImage = (dictionary? ["profileImageUrl"])!
+            self.profileDesc = (dictionary? ["desc"])!
+            
+            self.setUpProfile()
+            
+            
+        })
+    
+    }
+
+    
 
 
 
