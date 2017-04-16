@@ -43,6 +43,7 @@ class ProfileVC: UIViewController {
         
         let profileURL = profileImage
         profileImageView.loadImageUsingCacheWithUrlString(profileURL)
+        profileImageView.circlerImage()
         
         
         

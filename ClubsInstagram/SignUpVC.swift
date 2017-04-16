@@ -60,7 +60,7 @@ class SignUpVC: UIViewController {
             }
             
             //successfully authenticated user
-            let imageName = UUID().uuidString
+            let imageName = self.emailTextField.text
             let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
             
             if let profileImage = self.pictureImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.1) {

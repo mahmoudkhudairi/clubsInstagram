@@ -76,16 +76,18 @@ class EditVC: UIViewController {
         
         let values : [String : Any] = ["name": updatedProfileName ?? "User", "desc": updatedProfileDesc ?? "Add a Description"]
         ref.child("users").child("\(currentUserID)").updateChildValues(values)
+       self.dismiss(animated: true, completion: nil)
         
     }
     
     func uploadImage(_ image: UIImage) {
-        
-        let ref = FIRStorage.storage().reference()
+        let imageName = FIRAuth.auth()?.currentUser?.email
+        let ref = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
         guard let imageData = UIImageJPEGRepresentation(image, 0.5) else {return}
         let metaData = FIRStorageMetadata()
         metaData.contentType = "image/jpeg"
-        ref.child("\(currentUser?.email)").put(imageData, metadata: metaData) { (meta, error) in
+        ref.put(imageData, metadata: nil, completion: { (meta, error) in
+//        ref.child("\(currentUser?.email)").put(imageData, metadata: metaData) { (meta, error) in
             
             if let downloadPath = meta?.downloadURL()?.absoluteString {
                 //save to firebase database
@@ -94,7 +96,7 @@ class EditVC: UIViewController {
                 print("")
             }
             
-        }
+        })
         
         
     }

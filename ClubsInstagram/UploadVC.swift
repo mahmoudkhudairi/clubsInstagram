@@ -19,12 +19,8 @@ class UploadVC: UIViewController {
        
         handleImage()
     }
-    func fetchUser() {
-     
+    
    
-    }
-    
-    
     
     @IBAction func UploadButtonTapped(_ sender: Any) {
     

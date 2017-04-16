@@ -8,21 +8,53 @@
 
 import UIKit
 import Firebase
-class SearchVC: UIViewController {
-var users = [User]()
+class SearchVC: UIViewController,UISearchBarDelegate {
+    var users = [User]()
+    var filterdUsers = [User]()
     @IBOutlet weak var friendsSearchBar: UISearchBar!
     @IBOutlet weak var friendsTableView: UITableView!{
         didSet{
          friendsTableView.register(FriendCell.cellNib, forCellReuseIdentifier: FriendCell.cellIdentifier)
         }
     }
+    override func viewDidAppear(_ animated: Bool) {
+    
+        friendsTableView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-fetchUser()
+        fetchUser()
         friendsTableView.dataSource = self
         friendsTableView.delegate = self
         
+      
+        setupSearchBar()
     }
+    func setupSearchBar() {
+        let searchBar = UISearchBar(frame: CGRect(x:0,y:0,width:(UIScreen.main.bounds.width),height:70))
+        searchBar.delegate = self
+        self.friendsTableView.tableHeaderView = searchBar
+    }
+    // MARK: - search bar delegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filterdUsers = users
+            self.friendsTableView.reloadData()
+        }else {
+            filterTableView(text: searchText)
+        }
+    }
+    
+    func filterTableView(text:String) {
+        
+            //fix of not searching when backspacing
+            filterdUsers = users.filter({ (user) -> Bool in
+                return (user.name?.lowercased().contains(text.lowercased()))!
+            })
+            self.friendsTableView.reloadData()
+      
+    }
+    
     func fetchUser() {
         FIRDatabase.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
             
@@ -31,7 +63,7 @@ fetchUser()
                 user.id = snapshot.key
                 
                 self.users.append(user)
-                
+                  self.filterdUsers = self.users
                
                 DispatchQueue.main.async(execute: {
                     self.friendsTableView.reloadData()
@@ -47,7 +79,7 @@ fetchUser()
 extension SearchVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return users.count
+         return filterdUsers.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -56,7 +88,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.cellIdentifier, for: indexPath) as? FriendCell else {  return UITableViewCell()}
        
-        let user = users[indexPath.row]
+        let user = filterdUsers[indexPath.row]
         cell.userNameLabel.text = user.name
         
         if let profileImageUrl = user.profileImageUrl {
