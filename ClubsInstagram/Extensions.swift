@@ -78,39 +78,51 @@ extension UIImageView {
                self.layer.cornerRadius = self.frame.height/2
                    self.layer.masksToBounds = true
     }
-        func callTapGesture(){
+    
+    
+    //1 . Move this out from extension, to cell instead
+    //2 . split this into 2 functions : set gesture and observe
+    //3. use parameters
+    
+    func observeLikesOnPost(_ postID: String) {
+        FIRDatabase.database().reference().child("post").child(postID).child("numberOfLikes").observe(.value) { (snapshot) in
             
-            FIRDatabase.database().reference().child("posts").observe(.value, with: { (snapshot) in
-                
-                print(snapshot)
-                
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    let post = Post(dictionary: dictionary)
-                    post.id = snapshot.key
-                    if(post.likeImageIsTapped == true){
-                        
-                    }
-                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
-                    tap.numberOfTapsRequired = 1
-                    self.addGestureRecognizer(tap)
-                    self.isUserInteractionEnabled = true
+        }
+    }
+    func callTapGesture(){
+    
+        FIRDatabase.database().reference().child("posts").observe(.value, with: { (snapshot) in
+            
+            print(snapshot)
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let post = Post(dictionary: dictionary)
+                post.id = snapshot.key
+                if(post.likeImageIsTapped == true){
+                    
                 }
-                
-            }, withCancel: nil)
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
+                tap.numberOfTapsRequired = 1
+                self.addGestureRecognizer(tap)
+                self.isUserInteractionEnabled = true
+            }
+            
+        }, withCancel: nil)
         
-      
+        
     }
     func handleLike (){
         
         
         
-//        let values : [String : Any] = ["numberOfLikes": numberOfLikes ?? "User", "likeImageIsTapped": updatedProfileDesc ?? "Add a Description"]
-//        ref.child("users").child("\(currentUserID)").updateChildValues(values)
-
-           self.image = UIImage(named: "filled-heart")
-            
-        }
+        //        let values : [String : Any] = ["numberOfLikes": numberOfLikes ?? "User", "likeImageIsTapped": updatedProfileDesc ?? "Add a Description"]
+        //        ref.child("users").child("\(currentUserID)").updateChildValues(values)
         
+        self.image = UIImage(named: "filled-heart")
+        
+    }
+
+    
     
     func loadImageUsingCacheWithUrlString(_ urlString: String) {
       

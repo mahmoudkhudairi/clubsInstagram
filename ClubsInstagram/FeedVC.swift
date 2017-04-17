@@ -75,6 +75,8 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         cell.captionTextView.text = post.caption
         cell.likeImage.callTapGesture()
         
+        
+        cell.likeImage.observeLikesOnPost(post.id)
         return cell
     }
     
