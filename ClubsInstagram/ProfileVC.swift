@@ -57,8 +57,7 @@ class ProfileVC: UIViewController {
     @IBAction func logoutButtonPressed(_ sender: Any) {
         do {
             try FIRAuth.auth()?.signOut()
-//            UserDefaults.standard.removeObject(forKey: "userinfo")
-//            UserDefaults.standard.synchronize()
+
             guard let loginController = storyboard?.instantiateViewController(withIdentifier: "LoginVC")else{return}
            
             ad.window?.rootViewController = loginController

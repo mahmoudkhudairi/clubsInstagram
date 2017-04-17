@@ -11,6 +11,10 @@ import Firebase
 class UploadVC: UIViewController {
     var userName = ""
     var userProfilePicture = ""
+    var postIsLiked = false
+    var numberOfPostLikes = 0
+    
+    
     @IBOutlet weak var UploadButton: UIButton!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var photoImageView: UIImageView!
@@ -45,7 +49,7 @@ class UploadVC: UIViewController {
                     return
                 }
                 
-                if let pohtoImageUrl = metadata?.downloadURL()?.absoluteString,
+                if let photoImageUrl = metadata?.downloadURL()?.absoluteString,
                     let captionText = self.captionTextView.text {
                     guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
                     FIRDatabase.database().reference().child("users").child(userUid).observe(.value, with: { (snapshot) in
@@ -59,7 +63,8 @@ class UploadVC: UIViewController {
                              self.userProfilePicture = pic
                          
                         }
-                        let values = ["caption": captionText, "userId": userUid, "postImageUrl": pohtoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture]
+                        //TODO:Add the liked bool and Int
+                        let values = ["caption": captionText, "userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes] as [String : Any]
                         self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
                         
                     }, withCancel: nil)

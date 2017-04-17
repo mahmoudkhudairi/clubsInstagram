@@ -61,10 +61,13 @@ class SearchVC: UIViewController,UISearchBarDelegate {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let user = User(dictionary: dictionary)
                 user.id = snapshot.key
-                
+                if(user.id == FIRAuth.auth()?.currentUser?.uid)
+                {
+                    
+                }else{
                 self.users.append(user)
                   self.filterdUsers = self.users
-               
+            }
                 DispatchQueue.main.async(execute: {
                     self.friendsTableView.reloadData()
                 })

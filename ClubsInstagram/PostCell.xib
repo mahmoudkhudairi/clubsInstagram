@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="449.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="449"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7q7-j5-CEl">
@@ -42,21 +42,6 @@
                             <constraint firstAttribute="height" constant="200" id="85e-ib-4PO"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RqF-Rc-xHw">
-                        <rect key="frame" x="8" y="274" width="45" height="45"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="45" id="bT7-vc-nex"/>
-                        </constraints>
-                        <state key="normal" image="empty-heart"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RO3-7U-Y6h">
-                        <rect key="frame" x="61" y="279" width="35" height="35"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="35" id="Dmz-fb-9lp"/>
-                            <constraint firstAttribute="height" constant="35" id="SCR-m0-opw"/>
-                        </constraints>
-                        <state key="normal" image="comment"/>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbh-mc-vgu">
                         <rect key="frame" x="16" y="315" width="69" height="21"/>
                         <constraints>
@@ -75,32 +60,43 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-heart" translatesAutoresizingMaskIntoConstraints="NO" id="0a7-ur-1tf">
+                        <rect key="frame" x="8" y="274" width="40" height="40"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="comment" translatesAutoresizingMaskIntoConstraints="NO" id="92K-bB-vbA">
+                        <rect key="frame" x="55" y="279" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="ngX-Gk-2hu"/>
+                            <constraint firstAttribute="width" constant="30" id="q0V-J1-DiI"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Wbh-mc-vgu" firstAttribute="top" secondItem="92K-bB-vbA" secondAttribute="bottom" constant="6" id="0BR-44-EFH"/>
                     <constraint firstAttribute="trailing" secondItem="v2t-RY-xxB" secondAttribute="trailing" id="29T-jv-X6m"/>
+                    <constraint firstItem="0a7-ur-1tf" firstAttribute="leading" secondItem="IiS-5U-rqf" secondAttribute="leading" id="65U-9B-9np"/>
                     <constraint firstItem="v2t-RY-xxB" firstAttribute="top" secondItem="7q7-j5-CEl" secondAttribute="bottom" constant="8" symbolic="YES" id="8RQ-1X-0ei"/>
-                    <constraint firstItem="RqF-Rc-xHw" firstAttribute="leading" secondItem="IiS-5U-rqf" secondAttribute="leading" id="8im-Q1-dTk"/>
-                    <constraint firstItem="RO3-7U-Y6h" firstAttribute="leading" secondItem="RqF-Rc-xHw" secondAttribute="trailing" constant="8" symbolic="YES" id="LrJ-B9-pRD"/>
+                    <constraint firstItem="Wbh-mc-vgu" firstAttribute="top" secondItem="0a7-ur-1tf" secondAttribute="bottom" constant="1" id="KuZ-VG-h0W"/>
                     <constraint firstItem="Wbh-mc-vgu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="OZB-tt-Yf8"/>
+                    <constraint firstItem="92K-bB-vbA" firstAttribute="leading" secondItem="0a7-ur-1tf" secondAttribute="trailing" constant="7" id="OvK-I2-3qe"/>
                     <constraint firstAttribute="bottomMargin" secondItem="IiS-5U-rqf" secondAttribute="bottom" constant="1" id="PsE-jI-L8r"/>
                     <constraint firstItem="7q7-j5-CEl" firstAttribute="centerY" secondItem="GbS-7c-zdd" secondAttribute="centerY" id="Qge-Iu-ZAb"/>
                     <constraint firstItem="v2t-RY-xxB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Vy2-in-qDh"/>
                     <constraint firstItem="7q7-j5-CEl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="WLq-N5-9rm"/>
-                    <constraint firstItem="7q7-j5-CEl" firstAttribute="leading" secondItem="RqF-Rc-xHw" secondAttribute="leading" id="Wub-Bo-2Uh"/>
+                    <constraint firstItem="0a7-ur-1tf" firstAttribute="centerY" secondItem="92K-bB-vbA" secondAttribute="centerY" id="Zbd-Kx-Mhh"/>
+                    <constraint firstItem="0a7-ur-1tf" firstAttribute="leading" secondItem="7q7-j5-CEl" secondAttribute="leading" id="Zr1-Nl-bST"/>
                     <constraint firstItem="v2t-RY-xxB" firstAttribute="centerX" secondItem="IiS-5U-rqf" secondAttribute="centerX" id="aeW-jb-GCs"/>
-                    <constraint firstItem="RqF-Rc-xHw" firstAttribute="centerY" secondItem="RO3-7U-Y6h" secondAttribute="centerY" id="cQZ-o1-OQe"/>
+                    <constraint firstItem="92K-bB-vbA" firstAttribute="trailing" secondItem="Wbh-mc-vgu" secondAttribute="trailing" id="c2m-qp-Ffi"/>
                     <constraint firstItem="v2t-RY-xxB" firstAttribute="top" secondItem="GbS-7c-zdd" secondAttribute="bottom" constant="22" id="dlD-ON-fCP"/>
-                    <constraint firstItem="RqF-Rc-xHw" firstAttribute="top" secondItem="v2t-RY-xxB" secondAttribute="bottom" constant="8" symbolic="YES" id="erj-GB-rym"/>
-                    <constraint firstItem="RO3-7U-Y6h" firstAttribute="top" secondItem="v2t-RY-xxB" secondAttribute="bottom" constant="13" id="gnl-p9-uvG"/>
                     <constraint firstItem="7q7-j5-CEl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="hie-Hu-Xav"/>
                     <constraint firstItem="GbS-7c-zdd" firstAttribute="leading" secondItem="7q7-j5-CEl" secondAttribute="trailing" constant="15" id="mh3-gb-ccf"/>
-                    <constraint firstItem="Wbh-mc-vgu" firstAttribute="top" secondItem="RO3-7U-Y6h" secondAttribute="bottom" constant="1" id="ooC-6P-l8p"/>
                     <constraint firstItem="IiS-5U-rqf" firstAttribute="top" secondItem="Wbh-mc-vgu" secondAttribute="bottom" constant="6" id="uWM-Ng-zM2"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="captionTextView" destination="IiS-5U-rqf" id="IkP-2h-HP6"/>
-                <outlet property="likeButton" destination="RqF-Rc-xHw" id="ahW-tU-uHD"/>
+                <outlet property="commentImage" destination="92K-bB-vbA" id="gok-Lq-9Ze"/>
+                <outlet property="likeImage" destination="0a7-ur-1tf" id="YAr-AY-YxM"/>
                 <outlet property="likeNumbersLabel" destination="Wbh-mc-vgu" id="UwU-P1-wfZ"/>
                 <outlet property="postImage" destination="v2t-RY-xxB" id="jVV-Eg-hVj"/>
                 <outlet property="userNameLabel" destination="GbS-7c-zdd" id="q8U-9s-Xoq"/>

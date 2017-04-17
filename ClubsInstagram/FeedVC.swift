@@ -43,6 +43,12 @@ class FeedVC: UIViewController {
             
         }, withCancel: nil)
     }
+    
+    
+    
+    
+
+   
 }
 extension FeedVC: UITableViewDelegate,UITableViewDataSource{
     
@@ -66,7 +72,9 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         if let postImageUrl = post.postImageUrl {
             cell.postImage.loadImageUsingCacheWithUrlString(postImageUrl)
         }
-         cell.captionTextView.text = post.caption
+        cell.captionTextView.text = post.caption
+        cell.likeImage.callTapGesture()
+        
         return cell
     }
     

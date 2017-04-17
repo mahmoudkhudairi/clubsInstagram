@@ -15,6 +15,8 @@ class Post: NSObject {
     var caption: String?
     var postImageUrl: String?
     var userProfileImageUrl: String?
+    var likeImageIsTapped: Bool?
+    var numberOfLikes: Int?
     init(dictionary: [String: AnyObject]) {
         
         self.id = dictionary["id"] as? String
@@ -23,5 +25,7 @@ class Post: NSObject {
         self.caption = dictionary["caption"] as? String
         self.postImageUrl = dictionary["postImageUrl"] as? String
         self.userProfileImageUrl = dictionary["userProfileImageURL"] as? String
+        self.likeImageIsTapped = dictionary["likeImageIsTapped"] as? Bool
+        self.numberOfLikes = dictionary["numberOfLikes"] as? Int
     }
 }

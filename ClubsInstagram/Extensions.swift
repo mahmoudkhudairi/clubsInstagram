@@ -8,7 +8,8 @@
 
 import Foundation
 import UIKit
-
+import Firebase
+var numberOfLikes = Int()
 
 extension SignUpVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -72,11 +73,45 @@ extension UploadVC : UIImagePickerControllerDelegate, UINavigationControllerDele
 let imageCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
+   
     func circlerImage(){
                self.layer.cornerRadius = self.frame.height/2
                    self.layer.masksToBounds = true
-        
     }
+        func callTapGesture(){
+            
+            FIRDatabase.database().reference().child("posts").observe(.value, with: { (snapshot) in
+                
+                print(snapshot)
+                
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    let post = Post(dictionary: dictionary)
+                    post.id = snapshot.key
+                    if(post.likeImageIsTapped == true){
+                        
+                    }
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
+                    tap.numberOfTapsRequired = 1
+                    self.addGestureRecognizer(tap)
+                    self.isUserInteractionEnabled = true
+                }
+                
+            }, withCancel: nil)
+        
+      
+    }
+    func handleLike (){
+        
+        
+        
+//        let values : [String : Any] = ["numberOfLikes": numberOfLikes ?? "User", "likeImageIsTapped": updatedProfileDesc ?? "Add a Description"]
+//        ref.child("users").child("\(currentUserID)").updateChildValues(values)
+
+           self.image = UIImage(named: "filled-heart")
+            
+        }
+        
+    
     func loadImageUsingCacheWithUrlString(_ urlString: String) {
       
     

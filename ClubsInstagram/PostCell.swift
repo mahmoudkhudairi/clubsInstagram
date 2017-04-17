@@ -12,7 +12,9 @@ class PostCell: UITableViewCell {
 
     @IBOutlet weak var likeNumbersLabel: UILabel!
     @IBOutlet weak var captionTextView: UITextView!
-    @IBOutlet weak var likeButton: UIButton!
+   
+    @IBOutlet weak var commentImage: UIImageView!
+    @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userProfileImageView: UIImageView!
@@ -21,6 +23,8 @@ class PostCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+         
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -28,5 +32,12 @@ class PostCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
+    
+    // function to handle gesture {
+        // change image
+        // call delegate
+    //}
     
 }
