@@ -20,6 +20,7 @@ class FeedVC: UIViewController {
         
         postsTableView.delegate = self
         postsTableView.dataSource = self
+        
         fetchPost()
         
     }
@@ -52,6 +53,9 @@ class FeedVC: UIViewController {
 }
 extension FeedVC: UITableViewDelegate,UITableViewDataSource{
     
+   
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
@@ -73,13 +77,27 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
             cell.postImage.loadImageUsingCacheWithUrlString(postImageUrl)
         }
         cell.captionTextView.text = post.caption
-        cell.likeImage.callTapGesture()
-        
-        
-        cell.likeImage.observeLikesOnPost(post.id)
+        cell.callTapGesture()
+        cell.postIdentifier = post.id
+        cell.observeLikesOnPost(post.id!)
+        print("postid in CellforRow   ",post.id!)
+        //3 conform
+        cell.delegate = self
+        //cell.updatepostLikesNumber(post.id!)
         return cell
+    }
+    internal func likeImageIstapped() -> Bool {
+        return true
     }
     
     
-    
+}
+
+
+extension FeedVC : PostCellDelegate {
+    func likeImageTapped(withID: String, withNum: Int) {
+        let numberOflike : [String:Any] = ["numberOfLikes":withNum]
+        FIRDatabase.database().reference().child("posts").child(withID).updateChildValues(numberOflike)
+        
+    }
 }
