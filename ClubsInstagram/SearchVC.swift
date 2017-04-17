@@ -103,6 +103,20 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //let desController = FriendProfileVC()
+       let selectedUser = users[indexPath.row]
+        
+     //desController.currentUserID = selectedUser.id!
+        
+        guard let friendVCController = storyboard?.instantiateViewController(withIdentifier: "FriendProfileVC") as? FriendProfileVC else { return }
+        friendVCController.currentUserID = selectedUser.id!
+        
+      present(friendVCController, animated: true, completion: nil)
+        
+       
+        
+    }
         
    
     

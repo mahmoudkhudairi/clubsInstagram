@@ -29,7 +29,11 @@ class UploadVC: UIViewController {
     @IBAction func UploadButtonTapped(_ sender: Any) {
     
        
-       
+        if photoImageView.image == UIImage(named: "tapmeimage"){
+            
+        }else{
+            
+        
         
           //  guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
         
@@ -76,7 +80,7 @@ class UploadVC: UIViewController {
         
         self.tabBarController?.selectedIndex = 0
 
-        
+        }
         
     }
 

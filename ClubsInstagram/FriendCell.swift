@@ -26,6 +26,8 @@ class FriendCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func followButtonTapped(_ sender: Any) {
+        
+        print("Hello World")
     }
     
 }
