@@ -28,7 +28,7 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("IDPROFILE : ",currentUserID )
+        print("IDPROFILE : ",currentUserID! )
         ref = FIRDatabase.database().reference()
         
         

@@ -8,13 +8,26 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
+import FBSDKCoreKit
 class LoginVC: UIViewController {
 
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var fbLoginButton: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let loginButton = FBSDKLoginButton()
+        view.addSubview(loginButton)
+        
+        loginButton.frame = CGRect(x: 16, y: 500, width: view.frame.width - 32, height: 50)
+        
+        loginButton.addTarget(self, action: #selector(loginToAppUsingFacebook), for: .touchUpInside)
+        
+        //loginButton.delegate = self
+  
+      
 
     }
 
@@ -55,5 +68,34 @@ class LoginVC: UIViewController {
         
     }
     
-
+    
+    func loginToAppUsingFacebook() {
+        
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
+            if (error == nil){
+                guard let fbloginresult : FBSDKLoginManagerLoginResult = result else { return }
+                if(fbloginresult.grantedPermissions.contains("email"))
+                {
+                    self.getFBUserData()
+                }
+            }
+        }
+    }
+    
+    func getFBUserData(){
+        if((FBSDKAccessToken.current()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                if (error == nil){
+                    //everything works print the user data
+                    print(result!)
+                    
+                }
+            })
+        }
+    }
 }
+    
+    
+
+

@@ -8,6 +8,9 @@ pod 'Firebase/Core'
 pod 'Firebase/Storage'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
+pod 'FBSDKCoreKit'
+pod 'FBSDKShareKit'
+pod 'FBSDKLoginKit'
 
   # Pods for ClubsInstagram
 

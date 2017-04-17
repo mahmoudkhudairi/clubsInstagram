@@ -55,6 +55,7 @@
 		24FF8F091EA2031A008A38D2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendCell.xib; sourceTree = "<group>"; };
 		48F198D04A453AFCB3D5D3E6 /* Pods-ClubsInstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubsInstagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubsInstagram/Pods-ClubsInstagram.debug.xcconfig"; sourceTree = "<group>"; };
+		52F3D6471EA51E400006ADBA /* ClubsInstagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubsInstagram.entitlements; sourceTree = "<group>"; };
 		C86D9315FF655BDCB9B0223E /* Pods_ClubsInstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubsInstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -91,6 +92,7 @@
 		247AFF9B1EA0BD8C00C8A9E9 /* ClubsInstagram */ = {
 			isa = PBXGroup;
 			children = (
+				52F3D6471EA51E400006ADBA /* ClubsInstagram.entitlements */,
 				247AFFC21EA0CC3800C8A9E9 /* Model */,
 				247AFF9C1EA0BD8C00C8A9E9 /* AppDelegate.swift */,
 				247AFFA01EA0BD8C00C8A9E9 /* Main.storyboard */,
@@ -194,6 +196,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 5WMS2B626T;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -259,7 +266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		ABD91BD236B97A71BD8D43CC /* [CP] Embed Pods Frameworks */ = {
@@ -421,6 +428,7 @@
 			baseConfigurationReference = 48F198D04A453AFCB3D5D3E6 /* Pods-ClubsInstagram.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ClubsInstagram/ClubsInstagram.entitlements;
 				DEVELOPMENT_TEAM = 5WMS2B626T;
 				INFOPLIST_FILE = ClubsInstagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -435,6 +443,7 @@
 			baseConfigurationReference = 1671A2B60ACCBDEDB964E760 /* Pods-ClubsInstagram.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ClubsInstagram/ClubsInstagram.entitlements;
 				DEVELOPMENT_TEAM = 5WMS2B626T;
 				INFOPLIST_FILE = ClubsInstagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
