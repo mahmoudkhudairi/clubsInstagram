@@ -13,6 +13,7 @@ import Firebase
 class FriendProfileVC: UIViewController {
     
     
+    @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -20,7 +21,6 @@ class FriendProfileVC: UIViewController {
     
     var currentUserID : String = ""
     
-    var ref : FIRDatabaseReference!
     var profileName : String? = ""
     var profileDesc : String? = ""
     var profileImage : String? = ""
@@ -29,7 +29,6 @@ class FriendProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("IDPROFILE : ",currentUserID )
-        ref = FIRDatabase.database().reference()
         
         
         listenToFirebase()
@@ -56,11 +55,16 @@ class FriendProfileVC: UIViewController {
         
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        
+    }
 
     
     func listenToFirebase() {
-        ref.child("users").child(currentUserID).observe(.value, with: { (snapshot) in
+        
+        FIRDatabase.database().reference().child("users").child(currentUserID).observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
             
             let dictionary = snapshot.value as? [String: Any]
@@ -82,7 +86,44 @@ class FriendProfileVC: UIViewController {
         
     }
     
-    @IBOutlet weak var followButtonPressed: UIButton!
+    
+    @IBAction func followButtonClicked(_ sender: Any) {
+        let uid = FIRAuth.auth()!.currentUser!.uid
+        let key = FIRDatabase.database().reference().child("users").childByAutoId().key
+        
+        var isFollower = false
+        let ref = FIRDatabase.database().reference()
+        ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let following = snapshot.value as? [String : AnyObject] {
+                for (ke, value) in following {
+                    if value as? String == self.currentUserID {
+                        isFollower = true
+                        
+                        ref.child("users").child(uid).child("following/\(ke)").removeValue()
+                        ref.child("users").child(self.currentUserID).child("followers/\(ke)").removeValue()
+                        
+                     self.followButton.setTitle("Follow", for: .normal)
+                        
+                    }
+                }
+            }
+            if !isFollower {
+                let following = ["following/\(key)" : self.currentUserID]
+                let followers = ["followers/\(key)" : uid]
+                
+                ref.child("users").child(uid).updateChildValues(following)
+                ref.child("users").child(self.currentUserID).updateChildValues(followers)
+                
+                self.followButton.setTitle("Following!", for: .normal)
+                
+                
+            }
+        })
+        ref.removeAllObservers()
+        
+       
+    }
     
     
    
