@@ -48,7 +48,7 @@ class SignUpVC: UIViewController {
             return
         }
         
-        if email == "" || password == "" || name == "" {
+      
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
@@ -78,7 +78,7 @@ class SignUpVC: UIViewController {
                 })
             }
         })
-        }
+        
     }
     
     private func registerUserIntoDatabaseWithUID(_ uid: String, values: [String: AnyObject]) {
