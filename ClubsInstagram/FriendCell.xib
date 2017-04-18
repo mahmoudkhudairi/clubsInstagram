@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="101"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="100.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tgY-O9-VEi">
@@ -32,28 +32,17 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYr-cm-EQI">
-                        <rect key="frame" x="270" y="36.5" width="44" height="30.5"/>
-                        <state key="normal" title="Follow"/>
-                        <connections>
-                            <action selector="followButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UpI-T5-PLR"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="qRU-bV-gHO" secondAttribute="bottom" constant="33" id="0gC-dw-Tst"/>
                     <constraint firstAttribute="bottom" secondItem="tgY-O9-VEi" secondAttribute="bottom" constant="4" id="47W-c4-Rbt"/>
                     <constraint firstItem="tgY-O9-VEi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="K1F-iz-oyU"/>
                     <constraint firstItem="qRU-bV-gHO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="34" id="P6o-j2-LcS"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="ZYr-cm-EQI" secondAttribute="bottom" constant="29.5" id="cmU-Gh-Fxi"/>
-                    <constraint firstItem="ZYr-cm-EQI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="28.5" id="e94-OW-X7D"/>
-                    <constraint firstItem="ZYr-cm-EQI" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="2" id="kk6-mp-TUU"/>
                     <constraint firstItem="tgY-O9-VEi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="mIM-GK-eFg"/>
                     <constraint firstItem="qRU-bV-gHO" firstAttribute="leading" secondItem="tgY-O9-VEi" secondAttribute="trailing" constant="16" id="yqD-yO-IJS"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="followButton" destination="ZYr-cm-EQI" id="NKn-J2-iHj"/>
                 <outlet property="userImageView" destination="tgY-O9-VEi" id="Mzn-cX-h1f"/>
                 <outlet property="userNameLabel" destination="qRU-bV-gHO" id="w7g-Ib-d3C"/>
             </connections>

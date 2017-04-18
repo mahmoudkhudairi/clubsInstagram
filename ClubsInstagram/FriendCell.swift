@@ -12,7 +12,7 @@ class FriendCell: UITableViewCell {
 
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var followButton: UIButton!
+   
     static let cellIdentifier = "FriendCell"
     static let cellNib = UINib(nibName: FriendCell.cellIdentifier, bundle: Bundle.main)
     override func awakeFromNib() {
@@ -25,9 +25,6 @@ class FriendCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    @IBAction func followButtonTapped(_ sender: Any) {
-        
-        print("Hello World")
-    }
+   
     
 }

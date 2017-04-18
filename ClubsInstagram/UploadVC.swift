@@ -77,7 +77,8 @@ class UploadVC: UIViewController {
                 }
                 
             })
-        
+        self.captionTextView.text = ""
+            self.photoImageView.image = UIImage(named: "tapmeimage")
         self.tabBarController?.selectedIndex = 0
 
         }

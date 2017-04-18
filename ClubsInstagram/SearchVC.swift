@@ -99,6 +99,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
  
             cell.userImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
             cell.userImageView.circlerImage()
+                checkFollowing(indexPath: indexPath)
         }
         
         return cell
@@ -109,12 +110,61 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         
      //desController.currentUserID = selectedUser.id!
         
+        
+        let uid = FIRAuth.auth()!.currentUser!.uid
+        let ref = FIRDatabase.database().reference()
+        let key = ref.child("users").childByAutoId().key
+        
+        var isFollower = false
+        
+        ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let following = snapshot.value as? [String : AnyObject] {
+                for (ke, value) in following {
+                    if value as? String == self.users[indexPath.row].id {
+                        isFollower = true
+                        
+                        ref.child("users").child(uid).child("following/\(ke)").removeValue()
+                        ref.child("users").child(self.users[indexPath.row].id!).child("followers/\(ke)").removeValue()
+                        
+                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .none
+                    }
+                }
+            }
+            if !isFollower {
+                let following = ["following/\(key)" : self.users[indexPath.row].id]
+                let followers = ["followers/\(key)" : uid]
+                
+                ref.child("users").child(uid).updateChildValues(following)
+                ref.child("users").child(self.users[indexPath.row].id!).updateChildValues(followers)
+                
+                self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            }
+        })
+       // ref.removeAllObservers()
+        
         guard let friendVCController = storyboard?.instantiateViewController(withIdentifier: "FriendProfileVC") as? FriendProfileVC else { return }
         friendVCController.currentUserID = selectedUser.id!
         
-      present(friendVCController, animated: true, completion: nil)
+        //present(friendVCController, animated: true, completion: nil)
+    }
+    
+    
+    func checkFollowing(indexPath: IndexPath) {
+        let uid = FIRAuth.auth()!.currentUser!.uid
+        let ref = FIRDatabase.database().reference()
         
-       
+        ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let following = snapshot.value as? [String : AnyObject] {
+                for (_, value) in following {
+                    if value as? String == self.users[indexPath.row].id {
+                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                    }
+                }
+            }
+        })
+        //ref.removeAllObservers()
         
     }
         
