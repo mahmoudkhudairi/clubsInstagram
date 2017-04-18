@@ -9,8 +9,10 @@
 import UIKit
 import Firebase
 class FeedVC: UIViewController {
+    var uid = FIRAuth.auth()?.currentUser?.uid
     var posts = [Post]()
     var following = [String]()
+    var postsUsersIds = [String]()
     @IBOutlet weak var postsTableView: UITableView!{
          didSet{
          postsTableView.register(PostCell.cellNib, forCellReuseIdentifier: PostCell.cellIdentifier)
@@ -22,86 +24,56 @@ class FeedVC: UIViewController {
         postsTableView.delegate = self
         postsTableView.dataSource = self
         
+        fetchUsers()
         fetchPost()
         
     }
     
     
-    func fetchPost() {
-        let ref = FIRDatabase.database().reference()
-        ref.child("users").queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+
+    func fetchUsers() {
+        
+        
+        
+            FIRDatabase.database().reference().child("users").child(uid!).child("following").observe(.value, with: { (snapshot) in
+                
+         //   if let dictionary = snapshot.value as? [String: AnyObject] {
+//                 let user = User(dictionary: dictionary)
+//                 user.id = (snapshot.value as? NSDictionary)?.allKeys as? [String] ?? []
+//               self.following.append(user.id!)
+                
+                let allId = (snapshot.value as? NSDictionary)?.allKeys as? [String] ?? []
+                self.following.append(contentsOf: allId)
+                print("FollowersUserIdsArray: ",self.following)
+                
+                DispatchQueue.main.async(execute: {
+                    self.postsTableView.reloadData()
+                })
+                
+           // }
             
-            guard let users = snapshot.value as? [String : AnyObject] else { return }
-            for(_,value) in users {
-                if let uid = value["id"] as? String {
-                    if uid == FIRAuth.auth()?.currentUser?.uid {
-                        if let followingUsers = value["following"] as? [String : String] {
-                            for(_,user) in followingUsers {
-                                self.following.append(user)
-                            }
-                        }
-                        self.following.append((FIRAuth.auth()?.currentUser?.uid)!)
-                        
-                        ref.child("post").queryOrderedByKey().observeSingleEvent(of: .value, with: { (snap) in
-                            
-                            let postSnap = snap.value as! [String : AnyObject]
-                            
-                            for(_,post) in postSnap {
-                                if let userID = post["userId"] as? String {
-                                    for each in self.following {
-                                        if each == userID {
-                                            let posst = Post(dictionary: postSnap)
-                                            if let authorOfPost = post["userName"] as? String, let likes = post["numberOfLikes"] as? Int, let postImage = post["postImageUrl"] as? String, let postId = post["id"] as? String {
-                                                
-                                                posst.userName = authorOfPost
-                                                posst.numberOfLikes = likes
-                                                posst.postImageUrl = postImage
-                                                posst.id = postId
-                                                posst.userId = userID
-                                                
-                                                self.posts.append(posst)
-                                                
-                                            }
-                                        }
-                                        
-                                    }
-
-                                    self.postsTableView.reloadData()
-
-                                }
-                            }
-                            
-                        })
-                    }
-                }
+        }, withCancel: nil)
+    }
+    
+    func fetchPost() {
+        FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let post = Post(dictionary: dictionary)
+                post.id = snapshot.key
+               
+                self.posts.append(post)
+                self.postsUsersIds.append(post.userId!)
+                print("postUserIdsArray: ",self.postsUsersIds)
+                
+                DispatchQueue.main.async(execute: {
+                    self.postsTableView.reloadData()
+                })
+                
             }
             
-        })
-        
-        ref.removeAllObservers()
-        
-        
+        }, withCancel: nil)
     }
-
-      
-//    func fetchPost() {
-//        FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
-//            
-//            if let dictionary = snapshot.value as? [String: AnyObject] {
-//                let post = Post(dictionary: dictionary)
-//                post.id = snapshot.key
-//               
-//                self.posts.append(post)
-//                
-//                
-//                DispatchQueue.main.async(execute: {
-//                    self.postsTableView.reloadData()
-//                })
-//                
-//            }
-//            
-//        }, withCancel: nil)
-//    }
    
 }
 extension FeedVC: UITableViewDelegate,UITableViewDataSource{

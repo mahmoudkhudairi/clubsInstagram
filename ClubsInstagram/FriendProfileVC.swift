@@ -89,7 +89,7 @@ class FriendProfileVC: UIViewController {
     
     @IBAction func followButtonClicked(_ sender: Any) {
         let uid = FIRAuth.auth()!.currentUser!.uid
-        let key = FIRDatabase.database().reference().child("users").childByAutoId().key
+       
         
         var isFollower = false
         let ref = FIRDatabase.database().reference()
@@ -109,8 +109,8 @@ class FriendProfileVC: UIViewController {
                 }
             }
             if !isFollower {
-                let following = ["following/\(key)" : self.currentUserID]
-                let followers = ["followers/\(key)" : uid]
+                let following = ["following/\(self.currentUserID)" : true ]
+                let followers = ["followers/\(uid)" : true]
                 
                 ref.child("users").child(uid).updateChildValues(following)
                 ref.child("users").child(self.currentUserID).updateChildValues(followers)
