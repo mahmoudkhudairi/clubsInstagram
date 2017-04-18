@@ -126,7 +126,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
             if let following = snapshot.value as? [String : AnyObject] {
                 for (_, value) in following {
                     if value as? String == self.users[indexPath.row].id {
-                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .detailButton
                     }
                 }
             }

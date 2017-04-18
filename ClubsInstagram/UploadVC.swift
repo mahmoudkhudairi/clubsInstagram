@@ -114,6 +114,10 @@ class UploadVC: UIViewController {
         picker.allowsEditing = true
         present(picker, animated: true, completion: nil)
     }
+    
+    
+    
+    
    
 
 }

@@ -45,13 +45,13 @@ class PostCell: UITableViewCell {
     
  
      
-     func observeLikesOnPost(_ postID: String) {
-        FIRDatabase.database().reference().child("posts").child(postID).child("numberOfLikes").observe(.value, with: { (snapshot) in
-            
-            
-            print("postLikes",snapshot)
-        })
-     }
+//     func observeLikesOnPost(_ postID: String) {
+//        FIRDatabase.database().reference().child("posts").child(postID).child("numberOfLikes").observe(.value, with: { (snapshot) in
+//            
+//            
+//            print("postLikes",snapshot)
+//        })
+//     }
      func callTapGesture(){
      
         //numberOflikes += 1
@@ -60,7 +60,7 @@ class PostCell: UITableViewCell {
      self.addGestureRecognizer(tap)
      self.isUserInteractionEnabled = true
      }
- 
+//
      func handleLike (){
       numberOflikes += 1
     likeImage.image = UIImage(named: "filled-heart")
@@ -70,6 +70,11 @@ class PostCell: UITableViewCell {
         }
      
      }
+    
+    
+    
+    
+    
 
 
     

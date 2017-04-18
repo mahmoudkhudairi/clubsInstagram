@@ -48,6 +48,8 @@ class SignUpVC: UIViewController {
             return
         }
         
+        if email == "" || password == "" || name == "" {
+        
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
             if error != nil {
@@ -70,12 +72,13 @@ class SignUpVC: UIViewController {
                         return
                     }
                     if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl, "desc": "Say something about yourself"]
+                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl, "desc": "Say something about yourself", "uid" : uid]
                         self.registerUserIntoDatabaseWithUID(uid, values: values as [String : AnyObject])
                     }
                 })
             }
         })
+        }
     }
     
     private func registerUserIntoDatabaseWithUID(_ uid: String, values: [String: AnyObject]) {
