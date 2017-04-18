@@ -138,7 +138,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
                 ref.child("users").child(uid).updateChildValues(following)
                 ref.child("users").child(self.users[indexPath.row].id!).updateChildValues(followers)
                 
-                self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                //self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             }
         })
         ref.removeAllObservers()
@@ -159,7 +159,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
             if let following = snapshot.value as? [String : AnyObject] {
                 for (_, value) in following {
                     if value as? String == self.users[indexPath.row].id {
-                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .detailButton
                     }
                 }
             }
