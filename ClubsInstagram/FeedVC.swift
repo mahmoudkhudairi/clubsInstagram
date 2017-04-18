@@ -97,7 +97,19 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
 extension FeedVC : PostCellDelegate {
     func likeImageTapped(withID: String, withNum: Int) {
         let numberOflike : [String:Any] = ["numberOfLikes":withNum]
-        FIRDatabase.database().reference().child("posts").child(withID).updateChildValues(numberOflike)
         
+//        print(numberOflike)
+//        
+////        FIRDatabase.database().reference().child("posts").child(withID).child("numberOfLikes").runTransactionBlock({(currentData: FIRMutableData!) in withNum = currentData.value as? Int
+////            if (value == nil) {
+////                value = 0
+////            }
+//        
+//            print(currentData.value!)
+//            return FIRTransactionResult.success(withValue: currentData)
+//
+//            
+//        })
+//        
     }
 }

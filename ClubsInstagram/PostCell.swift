@@ -66,7 +66,13 @@ class PostCell: UITableViewCell {
     likeImage.image = UIImage(named: "filled-heart")
         
         if let postIdentifier = postIdentifier{
+            
+            print("number of likes:", numberOflikes)
+            
             delegate?.likeImageTapped(withID: postIdentifier, withNum: numberOflikes)
+            
+            print("number of likes:", numberOflikes, "Post:", postIdentifier)
+            
         }
      
      }

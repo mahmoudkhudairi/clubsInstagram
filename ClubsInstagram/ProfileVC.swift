@@ -89,7 +89,7 @@ class ProfileVC: UIViewController {
             self.profileName = (dictionary? ["name"])!
             self.profileImage = (dictionary? ["profileImageUrl"])!
             self.profileDesc = (dictionary? ["desc"])!
-            
+
             self.setUpProfile()
             
             
