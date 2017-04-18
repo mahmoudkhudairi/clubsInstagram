@@ -141,12 +141,12 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
                 self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             }
         })
-       // ref.removeAllObservers()
+        ref.removeAllObservers()
         
         guard let friendVCController = storyboard?.instantiateViewController(withIdentifier: "FriendProfileVC") as? FriendProfileVC else { return }
         friendVCController.currentUserID = selectedUser.id!
         
-        //present(friendVCController, animated: true, completion: nil)
+        present(friendVCController, animated: true, completion: nil)
     }
     
     
@@ -164,7 +164,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
                 }
             }
         })
-        //ref.removeAllObservers()
+        ref.removeAllObservers()
         
     }
         

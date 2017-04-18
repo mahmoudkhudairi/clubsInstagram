@@ -17,9 +17,9 @@ class ProfileVC: UIViewController {
     
   
     var ref : FIRDatabaseReference!
-    var profileName : String = ""
-    var profileDesc : String = ""
-    var profileImage : String = ""
+    var profileName : String? = ""
+    var profileDesc : String? = ""
+    var profileImage : String? = ""
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
@@ -28,7 +28,7 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("IDPROFILE : ",currentUserID! )
+//        print("IDPROFILE : ",currentUserID?  ?? "No user")
         ref = FIRDatabase.database().reference()
         
         
@@ -42,9 +42,11 @@ class ProfileVC: UIViewController {
         nameLabel.text = profileName
         descLabel.text = profileDesc
         
-        let profileURL = profileImage
+        if let profileURL = profileImage {
         profileImageView.loadImageUsingCacheWithUrlString(profileURL)
         profileImageView.circlerImage()
+        }
+       
         
         
         
@@ -84,12 +86,12 @@ class ProfileVC: UIViewController {
         ref.child("users").child(currentUserID!).observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
             
-            let dictionary = snapshot.value as? [String: String]
+            let dictionary = snapshot.value as? [String: Any]
             
-            self.profileName = (dictionary? ["name"])!
-            self.profileImage = (dictionary? ["profileImageUrl"])!
-            self.profileDesc = (dictionary? ["desc"])!
-            
+            self.profileName = dictionary?["name"] as? String
+            self.profileImage = dictionary? ["profileImageUrl"] as? String
+            self.profileDesc = dictionary? ["desc"] as? String
+
             self.setUpProfile()
             
             
