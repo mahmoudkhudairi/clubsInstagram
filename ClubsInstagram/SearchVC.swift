@@ -26,7 +26,7 @@ class SearchVC: UIViewController,UISearchBarDelegate {
         fetchUser()
         friendsTableView.dataSource = self
         friendsTableView.delegate = self
-        
+        friendsTableView.reloadData()
       
         setupSearchBar()
     }
@@ -96,7 +96,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         
         if let profileImageUrl = user.profileImageUrl {
          print("userImage: ",user.profileImageUrl ?? "")
- 
+            cell.accessoryType = .none
             cell.userImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
             cell.userImageView.circlerImage()
                 checkFollowing(indexPath: indexPath)
@@ -112,6 +112,8 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         let friendVCController = navController.childViewControllers.first as? FriendProfileVC
         friendVCController?.currentUserID = selectedUser.id!
         
+        
+    //    friendsTableView.deselectRow(at: indexPath, animated: true)
         present(navController, animated: true, completion: nil)
         
     }
@@ -121,20 +123,21 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         let uid = FIRAuth.auth()!.currentUser!.uid
         let ref = FIRDatabase.database().reference()
        
-        ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+        ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of:.value, with: { snapshot in
             
-            if let following = snapshot.value as? [String : AnyObject] {
-                for (_, value) in following {
-                    if value as? String == self.users[indexPath.row].id {
-                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .detailButton
+            if let following = snapshot.value as? [String : Any] {
+                for (key,_) in following {
+                    if key as? String == self.users[indexPath.row].id {
+                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
                     }
                 }
             }
         })
+       
         ref.removeAllObservers()
         
     }
         
-   
+    
     
 }

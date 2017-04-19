@@ -16,6 +16,9 @@ class FriendProfileVC: UIViewController {
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var postLabel: UILabel!
+    @IBOutlet weak var followerLabel: UILabel!
+    @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     
     
@@ -28,10 +31,14 @@ class FriendProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("IDPROFILE : ",currentUserID )
+        checkFollowed()
+       
         
-        
+        followButton.addTarget(self, action: #selector(followButtonClicked), for: .touchUpInside)
         listenToFirebase()
+        getNumberOfFollowing()
+        getNumberOfFollowers()
+        getNumberofPosts()
         
         
     }
@@ -80,14 +87,42 @@ class FriendProfileVC: UIViewController {
         
     }
     
+   
+    
+    func checkFollowed() {
+        let uid = FIRAuth.auth()!.currentUser!.uid
+        var isFollower = false
+        let ref = FIRDatabase.database().reference()
+        ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let following = snapshot.value as? [String : AnyObject] {
+                for (ke, _) in following {
+                    if ke  == self.currentUserID {
+                        isFollower = true
+                        
+                        self.followButton.setTitle("Following", for: .normal)
+                        
+                    }
+                }
+            }
+            if !isFollower {
+               
+                
+                self.followButton.setTitle("Follow", for: .normal)
+                
+                
+            }
+        })
+        ref.removeAllObservers()
+        
+    }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
         
     }
     
-    
-    @IBAction func followButtonClicked(_ sender: Any) {
+     func followButtonClicked() {
         let uid = FIRAuth.auth()!.currentUser!.uid
        
         
@@ -96,12 +131,12 @@ class FriendProfileVC: UIViewController {
         ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
             
             if let following = snapshot.value as? [String : AnyObject] {
-                for (ke, value) in following {
-                    if value as? String == self.currentUserID {
+                for (ke, _) in following {
+                    if ke  == self.currentUserID {
                         isFollower = true
                         
                         ref.child("users").child(uid).child("following/\(ke)").removeValue()
-                        ref.child("users").child(self.currentUserID).child("followers/\(ke)").removeValue()
+                        ref.child("users").child(self.currentUserID).child("followers/\(uid)").removeValue()
                         
                      self.followButton.setTitle("Follow", for: .normal)
                         
@@ -121,9 +156,37 @@ class FriendProfileVC: UIViewController {
             }
         })
         ref.removeAllObservers()
-        
        
     }
+    
+    func getNumberofPosts(){
+        FIRDatabase.database().reference().child("users").child(currentUserID).child("posts").observe(.value, with: { (snapshot) in
+            
+            print(snapshot.childrenCount)
+            self.postLabel.text = String("\(snapshot.childrenCount)\n Posts")
+            
+        })
+        
+    }
+    
+    func getNumberOfFollowing() {
+        FIRDatabase.database().reference().child("users").child(currentUserID).child("following").observe(.value, with: { (snapshot) in
+            print(snapshot.childrenCount)
+            self.followingLabel.text = String("\(snapshot.childrenCount)\n Following")
+        })
+        
+        
+    }
+    
+    func getNumberOfFollowers() {
+        FIRDatabase.database().reference().child("users").child(currentUserID).child("followers").observe(.value, with: { (snapshot) in
+            print(snapshot.childrenCount)
+            self.followerLabel.text = String("\(snapshot.childrenCount)\n Followers")
+        })
+        
+        
+    }
+
     
     
    

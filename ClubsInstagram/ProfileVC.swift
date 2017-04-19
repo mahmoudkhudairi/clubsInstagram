@@ -9,13 +9,20 @@
 import UIKit
 import Firebase
 
+enum ProfileType {
+    case myProfile
+    case otherProfile
+}
 
 
 class ProfileVC: UIViewController {
 
     var currentUserID = FIRAuth.auth()?.currentUser?.uid
     
-  
+    var profileType : ProfileType = .myProfile
+    
+    
+    
     var ref : FIRDatabaseReference!
     var profileName : String? = ""
     var profileDesc : String? = ""
@@ -35,9 +42,32 @@ class ProfileVC: UIViewController {
         ref = FIRDatabase.database().reference()
         
         
+        configureForProfileType(profileType)
+        
         listenToFirebase()
-getNumberofPosts()
+        getNumberofPosts()
+        getNumberOfFollowers()
+        getNumberOfFollowing()
        
+    }
+    
+    func configureForProfileType(_ type: ProfileType){
+        switch type {
+        case .myProfile:
+            configureMyProfile()
+        case .otherProfile:
+            configureOtherProfile()
+            
+        }
+    }
+    
+    func configureMyProfile(){
+        let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = barButtonItem
+    }
+    func configureOtherProfile(){
+        let barButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(logoutButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = barButtonItem
     }
     
     func setUpProfile() {
@@ -107,7 +137,27 @@ getNumberofPosts()
           print(snapshot.childrenCount)
             self.postNumbersLabel.text = String("\(snapshot.childrenCount)\n Posts")
     
-   })
+        })
 
-}
+    }
+    
+    func getNumberOfFollowing() {
+        FIRDatabase.database().reference().child("users").child(currentUserID!).child("following").observe(.value, with: { (snapshot) in
+            print(snapshot.childrenCount)
+            self.followingNumberLabel.text = String("\(snapshot.childrenCount)\n Following")
+        })
+        
+        
+    }
+    
+    func getNumberOfFollowers() {
+        FIRDatabase.database().reference().child("users").child(currentUserID!).child("followers").observe(.value, with: { (snapshot) in
+            print(snapshot.childrenCount)
+            self.followersnumberLabel.text = String("\(snapshot.childrenCount)\n Followers")
+        })
+        
+        
+    }
+
+    
 }
