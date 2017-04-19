@@ -112,13 +112,13 @@ class EditVC: UIViewController {
         ref.child("users").child(currentUserID).observe(.value, with: { (snapshot) in
             print("Value : ", snapshot)
             
-            let dictionary = snapshot.value as? [String : String]
+            let dictionary = snapshot.value as? [String : Any]
             
             
             
-            self.profileDesc = (dictionary?["desc"])!
-            self.profileName = (dictionary?["name"])!
-            self.profileImageUrl = (dictionary?["profileImageUrl"])!
+            self.profileDesc = (dictionary?["desc"] as! String)
+            self.profileName = (dictionary?["name"] as! String)
+            self.profileImageUrl = (dictionary?["profileImageUrl"] as! String)
             
             self.loadProfile()
         })

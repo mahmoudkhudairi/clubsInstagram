@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 class FeedVC: UIViewController {
-    var uid = FIRAuth.auth()?.currentUser?.uid
+    //var uid = FIRAuth.auth()?.currentUser?.uid
     var posts = [Post]()
     var following = [String]()
     var postsUsersIds = [String]()
@@ -32,16 +32,9 @@ class FeedVC: UIViewController {
     
 
     func fetchUsers() {
-        
-        
-        
-            FIRDatabase.database().reference().child("users").child(uid!).child("following").observe(.value, with: { (snapshot) in
-                
-         //   if let dictionary = snapshot.value as? [String: AnyObject] {
-//                 let user = User(dictionary: dictionary)
-//                 user.id = (snapshot.value as? NSDictionary)?.allKeys as? [String] ?? []
-//               self.following.append(user.id!)
-                
+        FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("following").observe(.childAdded, with: { (snapshot) in
+                guard snapshot.exists() else { return }
+            
                 let allId = (snapshot.value as? NSDictionary)?.allKeys as? [String] ?? []
                 self.following.append(contentsOf: allId)
                 print("FollowersUserIdsArray: ",self.following)
@@ -50,8 +43,8 @@ class FeedVC: UIViewController {
                     self.postsTableView.reloadData()
                 })
                 
-           // }
             
+       // }
         }, withCancel: nil)
     }
     

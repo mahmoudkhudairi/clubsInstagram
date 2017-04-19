@@ -13,6 +13,7 @@ class UploadVC: UIViewController {
     var userProfilePicture = ""
     var postIsLiked = false
     var numberOfPostLikes = 0
+    var postNum = 0
     
     
     @IBOutlet weak var UploadButton: UIButton!
@@ -41,7 +42,7 @@ class UploadVC: UIViewController {
             let storageRef = FIRStorage.storage().reference().child("postsImages").child("\(imageName).jpeg")
             
             let image = self.photoImageView.image
-            guard let imageData = UIImageJPEGRepresentation(image!, 0.5) else { return }
+            guard let imageData = UIImageJPEGRepresentation(image!, 0.1) else { return }
             
             
             let metaData = FIRStorageMetadata()
@@ -56,13 +57,13 @@ class UploadVC: UIViewController {
                 if let photoImageUrl = metadata?.downloadURL()?.absoluteString,
                     let captionText = self.captionTextView.text {
                     guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
-                    FIRDatabase.database().reference().child("users").child(userUid).observe(.value, with: { (snapshot) in
+                    FIRDatabase.database().reference().child("users").child(userUid).observeSingleEvent(of: .value, with: { (snapshot) in
                         
                         if let dictionary = snapshot.value as? [String: AnyObject] {
                             let user = User(dictionary: dictionary)
                             user.id = snapshot.key
                             guard let username = user.name,
-                            let pic = user.profileImageUrl else{return}
+                            let pic = user.profileImageUrl else {return}
                              self.userName = username
                              self.userProfilePicture = pic
                          
@@ -70,25 +71,43 @@ class UploadVC: UIViewController {
                         //TODO:Add the liked bool and Int
                         let values = ["caption": captionText, "userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes] as [String : Any]
                         self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
-                        
+                        self.registerUsersToDB()
                     }, withCancel: nil)
                    
                    
                 }
+               
                 
             })
-        self.captionTextView.text = ""
+           
+      
             self.photoImageView.image = UIImage(named: "tapmeimage")
         self.tabBarController?.selectedIndex = 0
+            
 
         }
         
     }
-
+    func registerUsersToDB(){
+        FIRDatabase.database().reference().child("posts").observe( .childAdded, with: { (snapshot) in
+            
+            
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let post = Post(dictionary: dictionary)
+                post.id = snapshot.key
+                
+                let posts = ["posts/\(post.id!)" : true]
+                
+                FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).updateChildValues(posts)
+            }
+        })
+        }
     func registerPostIntoDataBase(_ uid: String, values: [String: Any]) {
         let ref = FIRDatabase.database().reference(fromURL: "https://clubsinstagram.firebaseio.com/")
         let PostsReference = ref.child("posts").childByAutoId()
-        
+    
+ 
         PostsReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
             
             if err != nil {
@@ -100,8 +119,9 @@ class UploadVC: UIViewController {
             
         })
         
-        
+         self.captionTextView.text = ""
     }
+   
     func handleImage(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(choosePostImage))
         photoImageView.isUserInteractionEnabled = true

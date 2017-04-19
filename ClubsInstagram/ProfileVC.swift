@@ -20,7 +20,10 @@ class ProfileVC: UIViewController {
     var profileName : String? = ""
     var profileDesc : String? = ""
     var profileImage : String? = ""
-
+    var numberOfPosts : Int? = 0
+    @IBOutlet weak var followersnumberLabel: UILabel!
+    @IBOutlet weak var followingNumberLabel: UILabel!
+    @IBOutlet weak var postNumbersLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -33,7 +36,7 @@ class ProfileVC: UIViewController {
         
         
         listenToFirebase()
-
+getNumberofPosts()
        
     }
     
@@ -91,16 +94,20 @@ class ProfileVC: UIViewController {
             self.profileName = dictionary?["name"] as? String
             self.profileImage = dictionary? ["profileImageUrl"] as? String
             self.profileDesc = dictionary? ["desc"] as? String
-
+            
             self.setUpProfile()
             
             
         })
     
     }
-
+    func getNumberofPosts(){
+        FIRDatabase.database().reference().child("users").child(currentUserID!).child("posts").observe(.value, with: { (snapshot) in
+            
+          print(snapshot.childrenCount)
+            self.postNumbersLabel.text = String("\(snapshot.childrenCount)\n Posts")
     
+   })
 
-
-
+}
 }

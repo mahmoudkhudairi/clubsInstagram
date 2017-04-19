@@ -126,7 +126,6 @@
                                 <state key="normal" title="SignUP"/>
                                 <connections>
                                     <action selector="signUpButtonTapped:" destination="vM9-yk-Ggs" eventType="touchUpInside" id="Cli-Dm-Nsr"/>
-                                    <segue destination="svj-ke-0hm" kind="show" identifier="toFeedVC" id="cXy-zW-no6"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PvL-sN-PdB">
@@ -216,13 +215,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9I-zZ-MXM">
-                                <rect key="frame" x="154" y="106" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Am6-Fh-zz8">
                                 <rect key="frame" x="204" y="106" width="80" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -265,13 +257,23 @@
                                     <action selector="editProfileButtonPressed:" destination="o7f-np-0cA" eventType="touchUpInside" id="cQf-xR-Ww1"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Post" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9I-zZ-MXM">
+                                <rect key="frame" x="137" y="106" width="60" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="barProfile" id="x1U-pu-Geq"/>
                     <connections>
                         <outlet property="descLabel" destination="B7N-ol-Ug3" id="nxe-Op-FxA"/>
+                        <outlet property="followersnumberLabel" destination="Am6-Fh-zz8" id="jpN-p3-JH1"/>
+                        <outlet property="followingNumberLabel" destination="F3M-1s-BXe" id="REb-5L-ZNK"/>
                         <outlet property="nameLabel" destination="hnA-x1-cVo" id="4Jx-j5-tuR"/>
+                        <outlet property="postNumbersLabel" destination="Z9I-zZ-MXM" id="K1p-ac-mUg"/>
                         <outlet property="profileImageView" destination="DTi-lv-kuz" id="1rm-r2-8Ef"/>
                     </connections>
                 </viewController>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Post: NSObject {
+class Post {
     var id: String?
     var userId : String?
     var userName:String?
@@ -17,7 +17,7 @@ class Post: NSObject {
     var userProfileImageUrl: String?
     var likeImageIsTapped: Bool?
     var numberOfLikes: Int?
-    init(dictionary: [String: AnyObject]) {
+    init(dictionary: [String: Any]) {
         
         self.id = dictionary["id"] as? String
         self.userId = dictionary["userId"] as? String
