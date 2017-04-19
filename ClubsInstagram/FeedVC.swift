@@ -26,10 +26,10 @@ class FeedVC: UIViewController {
         
         fetchUsers()
         fetchPost()
-        
+       
     }
     
-    
+  
 
     func fetchUsers() {
         FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("following").observe(.childAdded, with: { (snapshot) in

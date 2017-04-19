@@ -69,7 +69,7 @@ class UploadVC: UIViewController {
                          
                         }
                         //TODO:Add the liked bool and Int
-                        let values = ["caption": captionText, "userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes] as [String : Any]
+                        let values = ["caption": captionText, "userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes, "date": [".sv": "timestamp"]] as [String : Any]
                         self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
                         self.registerUsersToDB()
                     }, withCancel: nil)
