@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="449"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="449.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7q7-j5-CEl">
@@ -51,7 +51,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="caption Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IiS-5U-rqf">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="caption Text" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiS-5U-rqf">
                         <rect key="frame" x="8" y="342" width="304" height="98"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -98,6 +98,7 @@
                 <outlet property="commentImage" destination="92K-bB-vbA" id="gok-Lq-9Ze"/>
                 <outlet property="likeImage" destination="0a7-ur-1tf" id="YAr-AY-YxM"/>
                 <outlet property="likeNumbersLabel" destination="Wbh-mc-vgu" id="UwU-P1-wfZ"/>
+                <outlet property="numberOfLikesLabel" destination="Wbh-mc-vgu" id="UMk-ZR-kYA"/>
                 <outlet property="postImage" destination="v2t-RY-xxB" id="jVV-Eg-hVj"/>
                 <outlet property="userNameLabel" destination="GbS-7c-zdd" id="q8U-9s-Xoq"/>
                 <outlet property="userProfileImageView" destination="7q7-j5-CEl" id="zo5-b5-oqh"/>
