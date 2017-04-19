@@ -62,11 +62,11 @@ class ProfileVC: UIViewController {
     }
     
     func configureMyProfile(){
-        let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutButtonPressed(_:)))
+        let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutButtonTapped(_:)))
         navigationItem.leftBarButtonItem = barButtonItem
     }
     func configureOtherProfile(){
-        let barButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(logoutButtonPressed(_:)))
+        let barButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(logoutButtonTapped(_:)))
         navigationItem.leftBarButtonItem = barButtonItem
     }
     
@@ -90,7 +90,7 @@ class ProfileVC: UIViewController {
    
     }
     
-    @IBAction func logoutButtonPressed(_ sender: Any) {
+    @IBAction func logoutButtonTapped(_ sender: Any) {
         do {
             try FIRAuth.auth()?.signOut()
 

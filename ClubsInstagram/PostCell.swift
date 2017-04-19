@@ -14,6 +14,7 @@ protocol PostCellDelegate: class {
 }
 class PostCell: UITableViewCell {
 
+    @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet weak var numberOfLikesLabel: UILabel!
     @IBOutlet weak var likeNumbersLabel: UILabel!
     @IBOutlet weak var captionTextView: UITextView!
