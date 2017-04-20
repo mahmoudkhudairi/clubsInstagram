@@ -25,7 +25,8 @@ class FeedVC: UIViewController {
         postsTableView.dataSource = self
         
         fetchUsers()
-        fetchPost()
+        //fetchPost()
+        
         
     }
     
@@ -35,18 +36,56 @@ class FeedVC: UIViewController {
         FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("following").observe(.childAdded, with: { (snapshot) in
                 guard snapshot.exists() else { return }
             
-                let allId = (snapshot.value as? NSDictionary)?.allKeys as? [String] ?? []
-                self.following.append(contentsOf: allId)
-                print("FollowersUserIdsArray: ",self.following)
+                let allId = snapshot.key
+                self.following.append(allId)
+                print(allId)
+            
+                self.filterPost()
+            
+            
+                DispatchQueue.main.async(execute: {
+                    self.postsTableView.reloadData()
+                })
+
+        }, withCancel: nil)
+        
+        
+    }
+    
+    func filterPost() {
+        FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let userID = dictionary["userId"] as? String
                 
+                print("Id of postID", userID ?? "lol")
+                
+
+                for each in self.following {
+                    if userID == each {
+                        let caption = dictionary["caption"] as? String
+                        let postImageUrl = dictionary["postImageUrl"] as? String
+                        let userName = dictionary["userName"] as? String
+                        let userProfileImageURL = dictionary["userProfileImageURL"] as? String
+                        
+                        let postByFollowed = Post(userName: userName!, caption: caption!, postImageUrl: postImageUrl!, userProfileImageURL: userProfileImageURL!)
+                           
+                        self.posts.append(postByFollowed)
+                        
+                    }
+                }
+                
+                
+   
                 DispatchQueue.main.async(execute: {
                     self.postsTableView.reloadData()
                 })
                 
+            }
             
-       // }
         }, withCancel: nil)
     }
+    
     
     func fetchPost() {
         FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
@@ -54,10 +93,15 @@ class FeedVC: UIViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let post = Post(dictionary: dictionary)
                 post.id = snapshot.key
-               
+                
+                
                 self.posts.append(post)
                 self.postsUsersIds.append(post.userId!)
                 print("postUserIdsArray: ",self.postsUsersIds)
+                
+                
+                
+                
                 
                 DispatchQueue.main.async(execute: {
                     self.postsTableView.reloadData()

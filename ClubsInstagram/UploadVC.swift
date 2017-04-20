@@ -61,15 +61,17 @@ class UploadVC: UIViewController {
                         
                         if let dictionary = snapshot.value as? [String: AnyObject] {
                             let user = User(dictionary: dictionary)
+                            
                             user.id = snapshot.key
                             guard let username = user.name,
                             let pic = user.profileImageUrl else {return}
+                            
                              self.userName = username
                              self.userProfilePicture = pic
                          
                         }
                         //TODO:Add the liked bool and Int
-                        let values = ["caption": captionText, "userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes] as [String : Any]
+                        let values = ["caption": captionText, "userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes, "comment" : "no comments"] as [String : Any]
                         self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
                         self.registerUsersToDB()
                     }, withCancel: nil)

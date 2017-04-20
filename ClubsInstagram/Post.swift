@@ -28,4 +28,11 @@ class Post {
         self.likeImageIsTapped = dictionary["likeImageIsTapped"] as? Bool
         self.numberOfLikes = dictionary["numberOfLikes"] as? Int
     }
+    
+    init(userName: String, caption : String, postImageUrl : String, userProfileImageURL: String) {
+        self.userName = userName
+        self.caption = caption
+        self.postImageUrl = postImageUrl
+        self.userProfileImageUrl = userProfileImageURL
+    }
 }
