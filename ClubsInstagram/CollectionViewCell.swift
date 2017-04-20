@@ -11,4 +11,9 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var postImage: UIImageView!
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        postImage.image = nil
+    }
 }

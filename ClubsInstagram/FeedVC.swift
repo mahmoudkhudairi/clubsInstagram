@@ -26,7 +26,7 @@ class FeedVC: UIViewController {
         self.posts.removeAll()
         
         fetchUsers()
-        //fetchPost()
+        fetchPost()
         
         
         postsTableView.reloadData()
@@ -54,10 +54,10 @@ class FeedVC: UIViewController {
             
         }, withCancel: nil)
         
-        self.filterPost()
+        //self.filterPost()
     }
     
-    func filterPost() {
+    /*func filterPost() {
         FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -94,7 +94,7 @@ class FeedVC: UIViewController {
             }
             
         }, withCancel: nil)
-    }
+    } */
     
     
     func fetchPost() {

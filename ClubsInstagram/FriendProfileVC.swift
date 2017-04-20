@@ -20,10 +20,18 @@ class FriendProfileVC: UIViewController {
     @IBOutlet weak var followerLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
-    
+    @IBOutlet weak var userPostCollectionView: UICollectionView! {
+        didSet{
+            userPostCollectionView.delegate = self
+            userPostCollectionView.dataSource = self
+            
+        }
+    }
+    var collectionviewLayout: CustomImageFlowLayout!
     
     var currentUserID : String = ""
-    
+    var postIds : [String] = []
+    var userUploadedPhotos = [Post]()
     var profileName : String? = ""
     var profileDesc : String? = ""
     var profileImage : String? = ""
@@ -40,6 +48,14 @@ class FriendProfileVC: UIViewController {
         getNumberOfFollowers()
         getNumberofPosts()
         
+        collectionviewLayout = CustomImageFlowLayout()
+        userPostCollectionView.collectionViewLayout = collectionviewLayout
+        userPostCollectionView.backgroundColor = .white
+
+        
+        filterPost()
+       
+        
         
     }
     
@@ -52,9 +68,7 @@ class FriendProfileVC: UIViewController {
         profileImageView.loadImageUsingCacheWithUrlString(profileURL)
         profileImageView.circlerImage()
         }
-        
-        
-        
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,6 +99,32 @@ class FriendProfileVC: UIViewController {
             
         })
         
+    }
+    
+    func filterPost() {
+        FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let post = Post(dictionary: dictionary)
+                post.id = snapshot.key
+                let userId = dictionary["userId"] as? String
+                
+                if userId == self.currentUserID {
+                    
+                    let photoImageUrl = dictionary["postImageUrl"] as? String
+                    
+                    self.userUploadedPhotos.append(post)
+                    
+                    print("Id of postID", photoImageUrl ?? "lol")
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.userPostCollectionView.reloadData()
+                    })
+                    
+                }
+            }
+            
+        }, withCancel: nil)
     }
     
    
@@ -187,8 +227,30 @@ class FriendProfileVC: UIViewController {
         
     }
 
-    
-    
-   
-
 }
+
+extension FriendProfileVC : UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = userPostCollectionView.dequeueReusableCell(withReuseIdentifier: "userPostCell", for: indexPath) as! UserCollectionViewCell
+        
+        let post = userUploadedPhotos[indexPath.row]
+        
+        if let profileURL = post.postImageUrl {
+            cell.imageView.loadImageUsingCacheWithUrlString(profileURL)
+        }
+        
+        return cell
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return userUploadedPhotos.count
+        
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
+    
+}
+

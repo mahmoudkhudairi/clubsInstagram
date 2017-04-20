@@ -30,6 +30,8 @@
 		249FC1BD1EA24D7800B610D4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FC1BC1EA24D7800B610D4 /* Post.swift */; };
 		24FF8F0B1EA2031A008A38D2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF8F091EA2031A008A38D2 /* FriendCell.swift */; };
 		24FF8F0C1EA2031A008A38D2 /* FriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */; };
+		52130DFA1EA8B18300E969BE /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52130DF91EA8B18300E969BE /* UserCollectionViewCell.swift */; };
+		52130DFC1EA8B78700E969BE /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52130DFB1EA8B78700E969BE /* CustomImageFlowLayout.swift */; };
 		5237756A1EA7B03800DE96BA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523775691EA7B03800DE96BA /* Comment.swift */; };
 		5237756C1EA7BAE600DE96BA /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5237756B1EA7BAE600DE96BA /* CommentsVC.swift */; };
 		DB912319E96755F51B639CB0 /* Pods_ClubsInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86D9315FF655BDCB9B0223E /* Pods_ClubsInstagram.framework */; };
@@ -63,6 +65,8 @@
 		24FF8F091EA2031A008A38D2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendCell.xib; sourceTree = "<group>"; };
 		48F198D04A453AFCB3D5D3E6 /* Pods-ClubsInstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubsInstagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubsInstagram/Pods-ClubsInstagram.debug.xcconfig"; sourceTree = "<group>"; };
+		52130DF91EA8B18300E969BE /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
+		52130DFB1EA8B78700E969BE /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
 		523775691EA7B03800DE96BA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		5237756B1EA7BAE600DE96BA /* CommentsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
 		52F3D6471EA51E400006ADBA /* ClubsInstagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubsInstagram.entitlements; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 				24FF8F091EA2031A008A38D2 /* FriendCell.swift */,
 				24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */,
 				242235E31EA86BEC00D833D0 /* CollectionViewCell.swift */,
+				52130DF91EA8B18300E969BE /* UserCollectionViewCell.swift */,
 				242235E51EA88BC700D833D0 /* CommentCell.swift */,
 				242235E61EA88BC700D833D0 /* CommentCell.xib */,
 			);
@@ -150,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				523775691EA7B03800DE96BA /* Comment.swift */,
+				52130DFB1EA8B78700E969BE /* CustomImageFlowLayout.swift */,
 				247AFFC71EA0FA9900C8A9E9 /* User.swift */,
 				249FC1BC1EA24D7800B610D4 /* Post.swift */,
 				247AFFC51EA0DB7A00C8A9E9 /* Extensions.swift */,
@@ -282,7 +288,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		ABD91BD236B97A71BD8D43CC /* [CP] Embed Pods Frameworks */ = {
@@ -320,6 +326,8 @@
 				247AFFB31EA0C71100C8A9E9 /* SignUpVC.swift in Sources */,
 				24FF8F0B1EA2031A008A38D2 /* FriendCell.swift in Sources */,
 				5237756C1EA7BAE600DE96BA /* CommentsVC.swift in Sources */,
+				52130DFA1EA8B18300E969BE /* UserCollectionViewCell.swift in Sources */,
+				52130DFC1EA8B78700E969BE /* CustomImageFlowLayout.swift in Sources */,
 				5237756A1EA7B03800DE96BA /* Comment.swift in Sources */,
 				247AFF9D1EA0BD8C00C8A9E9 /* AppDelegate.swift in Sources */,
 				247AFFBC1EA0CAC600C8A9E9 /* UploadVC.swift in Sources */,

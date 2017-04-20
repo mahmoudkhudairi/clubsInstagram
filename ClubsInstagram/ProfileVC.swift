@@ -36,8 +36,16 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var postCollectionView: UICollectionView!
-    
+    //collection view items
+    @IBOutlet weak var postCollectionView: UICollectionView! {
+        didSet{
+            postCollectionView.delegate = self
+            postCollectionView.dataSource = self
+            
+        }
+    }
+    //collection view items
+    var collectionviewLayout: CustomImageFlowLayout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +59,15 @@ class ProfileVC: UIViewController {
         getNumberofPosts()
         getNumberOfFollowers()
         getNumberOfFollowing()
+        
+        //collection view items
+        collectionviewLayout = CustomImageFlowLayout()
+        postCollectionView.collectionViewLayout = collectionviewLayout
+        postCollectionView.backgroundColor = .white
+    
         //fetchUsers()
         filterPost()
       // postCollectionView.delegate = self
-        postCollectionView.dataSource = self
     }
     
     func configureForProfileType(_ type: ProfileType){
@@ -217,7 +230,18 @@ class ProfileVC: UIViewController {
 
     
 }
-extension ProfileVC : UICollectionViewDataSource{
+extension ProfileVC : UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return userUploadedPhotos.count
+        
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          let cell = postCollectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as! CollectionViewCell
         
@@ -230,10 +254,5 @@ extension ProfileVC : UICollectionViewDataSource{
         return cell
        
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userUploadedPhotos.count
-        
-    }
-    
-}
+       }
 
