@@ -11,8 +11,9 @@ import Firebase
 
 class CommentsVC: UIViewController {
     var currentPostID = ""
+     var commentId :Int = 0
        let uid = FIRAuth.auth()!.currentUser!.uid
-    var users = [User]()
+    var comments = [Comment]()
     @IBOutlet weak var postButton: UIButton!
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var commentsTableView: UITableView!{
@@ -29,40 +30,59 @@ class CommentsVC: UIViewController {
         commentsTableView.dataSource = self
         commentsTableView.delegate = self
         print("currentPostId:", currentPostID)
-        fetchUser()
-        postButton.addTarget(self, action: #selector(handlePost), for: .touchUpInside)
+        fetchComments()
+        postButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        self.commentTextField.text = ""
     }
     func handlePost(){
-     
-        ref.child("posts").child(currentPostID).child("comments").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-            
-             let comment = ["comments/\(self.uid)" : true ]
-                self.ref.child("posts").child(self.currentPostID).updateChildValues(comment)
-           
-            let commentText = ["\(self.commentTextField.text)": true]
-            self.ref.child("posts").child(self.currentPostID).child("comments").child(self.uid).updateChildValues(commentText)
-           
-            
-            })
-         ref.removeAllObservers()
+         self.commentId += 1
+        ref.child("users").child(uid).observe(.value, with: { (snapshot) in
+            guard let dict = snapshot.value as? NSDictionary
+                else{return}
+            let userName = dict["name"] as? String
+            let userProfileImageUrl = dict["profileImageUrl"] as? String
+        
+         let comment :[String:Any] = ["content": self.commentTextField.text!,
+                                      "userId": self.uid ,"userName": userName,"userImageUrl" :userProfileImageUrl]
+         self.ref.child("posts").child(self.currentPostID).child("comments").child("\(self.commentId)").updateChildValues(comment)
+          })
+        self.commentsTableView.reloadData()
     }
     
-    
-        
-    
-                
-     
-
-
-
-    func fetchUser() {
-        FIRDatabase.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
+    func handleSend() {
+        ref.child("users").child(uid).observe(.value, with: { (snapshot) in
+            guard let dict = snapshot.value as? NSDictionary
+                else{return}
+            let userName = dict["name"] as? String
+            let userProfileImageUrl = dict["profileImageUrl"] as? String
             
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                let user = User(dictionary: dictionary)
-                user.id = snapshot.key
-                
-                    self.users.append(user)
+        let refrence = FIRDatabase.database().reference().child("posts").child("\(self.currentPostID)").child("comments")
+        let childRef = refrence.childByAutoId()
+        let values: [String: Any] = ["content": self.commentTextField.text!,
+        "userId": self.uid ,"userName": userName,"userImageUrl" :userProfileImageUrl]
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+        }
+            self.commentTextField.text = ""
+              })
+        self.commentsTableView.reloadData()
+         
+    }
+    
+
+
+
+    func fetchComments() {
+        FIRDatabase.database().reference().child("posts").child(self.currentPostID).child("comments").observe(.childAdded, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as?  [String: Any] {
+             let comment = Comment(dictionary: dictionary)
+
+                   self.comments.append(comment)
                 
                 DispatchQueue.main.async(execute: {
                     self.commentsTableView.reloadData()
@@ -83,10 +103,10 @@ class CommentsVC: UIViewController {
 extension CommentsVC: UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.cellIdentifier, for: indexPath) as? CommentCell else {  return UITableViewCell()}
-        let user = users[indexPath.row]
-        cell.userNameLabel.text = user.name
-        cell.commentLabel.text = "this is test "
-        if let profileImageUrl = user.profileImageUrl {
+        let comment = comments[indexPath.row]
+        cell.userNameLabel.text = comment.userName
+        cell.commentLabel.text = comment.content
+        if let profileImageUrl = comment.userImageUrl {
             cell.userProfilePicture.loadImageUsingCacheWithUrlString(profileImageUrl)
             cell.userProfilePicture.circlerImage()
            
@@ -94,7 +114,7 @@ extension CommentsVC: UITableViewDataSource,UITableViewDelegate{
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return comments.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
