@@ -62,7 +62,10 @@ class PostCell: UITableViewCell {
      
         //numberOflikes += 1
      let tapLike = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
-     tapLike.numberOfTapsRequired = 2
+        let cellTapLike = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
+     cellTapLike.numberOfTapsRequired = 2
+        self.addGestureRecognizer(cellTapLike)
+         self.isUserInteractionEnabled = true
      likeImage.addGestureRecognizer(tapLike)
      likeImage.isUserInteractionEnabled = true
         let tapComment = UITapGestureRecognizer(target: self, action: #selector(self.handleComment))

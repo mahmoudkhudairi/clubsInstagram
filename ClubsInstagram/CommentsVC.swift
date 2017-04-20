@@ -34,20 +34,7 @@ class CommentsVC: UIViewController {
         postButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         self.commentTextField.text = ""
     }
-    func handlePost(){
-         self.commentId += 1
-        ref.child("users").child(uid).observe(.value, with: { (snapshot) in
-            guard let dict = snapshot.value as? NSDictionary
-                else{return}
-            let userName = dict["name"] as? String
-            let userProfileImageUrl = dict["profileImageUrl"] as? String
-        
-         let comment :[String:Any] = ["content": self.commentTextField.text!,
-                                      "userId": self.uid ,"userName": userName,"userImageUrl" :userProfileImageUrl]
-         self.ref.child("posts").child(self.currentPostID).child("comments").child("\(self.commentId)").updateChildValues(comment)
-          })
-        self.commentsTableView.reloadData()
-    }
+   
     
     func handleSend() {
         ref.child("users").child(uid).observe(.value, with: { (snapshot) in
