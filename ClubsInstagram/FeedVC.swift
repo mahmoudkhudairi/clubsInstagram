@@ -149,7 +149,7 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         if let postImageUrl = post.postImageUrl {
             cell.postImage.loadImageUsingCacheWithUrlString(postImageUrl)
         }
-        cell.userProfileImageView.layer.cornerRadius = 15
+        cell.userProfileImageView.circlerImage()
         cell.userProfileImageView.layer.borderWidth = 1.0
         cell.userProfileImageView.layer.borderColor = UIColor.yellow.cgColor
         cell.captionTextView.text = post.caption

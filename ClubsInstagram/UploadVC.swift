@@ -23,6 +23,15 @@ class UploadVC: UIViewController {
         super.viewDidLoad()
        
         handleImage()
+        setupUI()
+    }
+    
+    func setupUI() {
+        
+        UploadButton.layer.borderWidth = 1
+        UploadButton.layer.borderColor = UIColor.blue.cgColor
+        
+        
     }
     
    

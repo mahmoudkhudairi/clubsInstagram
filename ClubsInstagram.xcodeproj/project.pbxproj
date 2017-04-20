@@ -13,7 +13,6 @@
 		244970FA1EA4C588005045CF /* FriendProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244970F91EA4C588005045CF /* FriendProfileVC.swift */; };
 		247AFF9D1EA0BD8C00C8A9E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247AFF9C1EA0BD8C00C8A9E9 /* AppDelegate.swift */; };
 		247AFFA21EA0BD8C00C8A9E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 247AFFA01EA0BD8C00C8A9E9 /* Main.storyboard */; };
-		247AFFA41EA0BD8C00C8A9E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 247AFFA31EA0BD8C00C8A9E9 /* Assets.xcassets */; };
 		247AFFA71EA0BD8C00C8A9E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 247AFFA51EA0BD8C00C8A9E9 /* LaunchScreen.storyboard */; };
 		247AFFAF1EA0C2D600C8A9E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 247AFFAE1EA0C2D600C8A9E9 /* GoogleService-Info.plist */; };
 		247AFFB11EA0C6F400C8A9E9 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247AFFB01EA0C6F400C8A9E9 /* LoginVC.swift */; };
@@ -32,6 +31,9 @@
 		24FF8F0C1EA2031A008A38D2 /* FriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */; };
 		52130DFA1EA8B18300E969BE /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52130DF91EA8B18300E969BE /* UserCollectionViewCell.swift */; };
 		52130DFC1EA8B78700E969BE /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52130DFB1EA8B78700E969BE /* CustomImageFlowLayout.swift */; };
+		522BAB021EA913B0008D33D9 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522BAB011EA913B0008D33D9 /* ExploreVC.swift */; };
+		522BAB081EA9187E008D33D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 522BAB071EA9187E008D33D9 /* Assets.xcassets */; };
+		522BAB0A1EA91933008D33D9 /* ExpCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522BAB091EA91933008D33D9 /* ExpCollectionViewCell.swift */; };
 		5237756A1EA7B03800DE96BA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523775691EA7B03800DE96BA /* Comment.swift */; };
 		5237756C1EA7BAE600DE96BA /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5237756B1EA7BAE600DE96BA /* CommentsVC.swift */; };
 		DB912319E96755F51B639CB0 /* Pods_ClubsInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86D9315FF655BDCB9B0223E /* Pods_ClubsInstagram.framework */; };
@@ -46,7 +48,6 @@
 		247AFF991EA0BD8C00C8A9E9 /* ClubsInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubsInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		247AFF9C1EA0BD8C00C8A9E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		247AFFA11EA0BD8C00C8A9E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		247AFFA31EA0BD8C00C8A9E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		247AFFA61EA0BD8C00C8A9E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		247AFFA81EA0BD8C00C8A9E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		247AFFAE1EA0C2D600C8A9E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -67,6 +68,9 @@
 		48F198D04A453AFCB3D5D3E6 /* Pods-ClubsInstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubsInstagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubsInstagram/Pods-ClubsInstagram.debug.xcconfig"; sourceTree = "<group>"; };
 		52130DF91EA8B18300E969BE /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		52130DFB1EA8B78700E969BE /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
+		522BAB011EA913B0008D33D9 /* ExploreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
+		522BAB071EA9187E008D33D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		522BAB091EA91933008D33D9 /* ExpCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpCollectionViewCell.swift; sourceTree = "<group>"; };
 		523775691EA7B03800DE96BA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		5237756B1EA7BAE600DE96BA /* CommentsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
 		52F3D6471EA51E400006ADBA /* ClubsInstagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubsInstagram.entitlements; sourceTree = "<group>"; };
@@ -110,7 +114,7 @@
 				247AFFC21EA0CC3800C8A9E9 /* Model */,
 				247AFF9C1EA0BD8C00C8A9E9 /* AppDelegate.swift */,
 				247AFFA01EA0BD8C00C8A9E9 /* Main.storyboard */,
-				247AFFA31EA0BD8C00C8A9E9 /* Assets.xcassets */,
+				522BAB071EA9187E008D33D9 /* Assets.xcassets */,
 				247AFFA51EA0BD8C00C8A9E9 /* LaunchScreen.storyboard */,
 				247AFFA81EA0BD8C00C8A9E9 /* Info.plist */,
 				247AFFAE1EA0C2D600C8A9E9 /* GoogleService-Info.plist */,
@@ -124,12 +128,13 @@
 			isa = PBXGroup;
 			children = (
 				247AFFB01EA0C6F400C8A9E9 /* LoginVC.swift */,
+				522BAB011EA913B0008D33D9 /* ExploreVC.swift */,
+				247AFFB71EA0CA9200C8A9E9 /* ProfileVC.swift */,
 				247AFFB21EA0C71100C8A9E9 /* SignUpVC.swift */,
 				247AFFB51EA0C74C00C8A9E9 /* FeedVC.swift */,
 				5237756B1EA7BAE600DE96BA /* CommentsVC.swift */,
 				247AFFB91EA0CAAB00C8A9E9 /* SearchVC.swift */,
 				247AFFBB1EA0CAC600C8A9E9 /* UploadVC.swift */,
-				247AFFB71EA0CA9200C8A9E9 /* ProfileVC.swift */,
 				247AFFC31EA0D14200C8A9E9 /* EditVC.swift */,
 				244970F91EA4C588005045CF /* FriendProfileVC.swift */,
 			);
@@ -142,6 +147,7 @@
 				247AFFBD1EA0CC2000C8A9E9 /* PostCell.swift */,
 				247AFFBE1EA0CC2000C8A9E9 /* PostCell.xib */,
 				24FF8F091EA2031A008A38D2 /* FriendCell.swift */,
+				522BAB091EA91933008D33D9 /* ExpCollectionViewCell.swift */,
 				24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */,
 				242235E31EA86BEC00D833D0 /* CollectionViewCell.swift */,
 				52130DF91EA8B18300E969BE /* UserCollectionViewCell.swift */,
@@ -250,9 +256,9 @@
 			files = (
 				247AFFA71EA0BD8C00C8A9E9 /* LaunchScreen.storyboard in Resources */,
 				24FF8F0C1EA2031A008A38D2 /* FriendCell.xib in Resources */,
-				247AFFA41EA0BD8C00C8A9E9 /* Assets.xcassets in Resources */,
 				247AFFC01EA0CC2000C8A9E9 /* PostCell.xib in Resources */,
 				247AFFA21EA0BD8C00C8A9E9 /* Main.storyboard in Resources */,
+				522BAB081EA9187E008D33D9 /* Assets.xcassets in Resources */,
 				247AFFAF1EA0C2D600C8A9E9 /* GoogleService-Info.plist in Resources */,
 				242235E81EA88BC700D833D0 /* CommentCell.xib in Resources */,
 			);
@@ -316,6 +322,8 @@
 				247AFFBA1EA0CAAB00C8A9E9 /* SearchVC.swift in Sources */,
 				247AFFC41EA0D14200C8A9E9 /* EditVC.swift in Sources */,
 				242235E41EA86BEC00D833D0 /* CollectionViewCell.swift in Sources */,
+				522BAB021EA913B0008D33D9 /* ExploreVC.swift in Sources */,
+				522BAB0A1EA91933008D33D9 /* ExpCollectionViewCell.swift in Sources */,
 				247AFFB81EA0CA9200C8A9E9 /* ProfileVC.swift in Sources */,
 				247AFFB61EA0C74C00C8A9E9 /* FeedVC.swift in Sources */,
 				242235E71EA88BC700D833D0 /* CommentCell.swift in Sources */,

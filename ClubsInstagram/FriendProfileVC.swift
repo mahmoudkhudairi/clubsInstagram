@@ -54,9 +54,15 @@ class FriendProfileVC: UIViewController {
 
         
         filterPost()
+        setupUI()
        
         
         
+    }
+    
+    func setupUI() {
+        userPostCollectionView.layer.borderColor = UIColor.gray.cgColor
+        userPostCollectionView.layer.borderWidth = 1
     }
     
     func setUpProfile() {

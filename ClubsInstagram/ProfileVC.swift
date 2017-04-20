@@ -35,6 +35,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var postNumbersLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var editProfileButton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     //collection view items
     @IBOutlet weak var postCollectionView: UICollectionView! {
@@ -67,7 +68,15 @@ class ProfileVC: UIViewController {
     
         //fetchUsers()
         filterPost()
+        setupUI()
       // postCollectionView.delegate = self
+    }
+    
+    func setupUI() {
+        editProfileButton.layer.borderWidth = 1
+        editProfileButton.layer.borderColor = UIColor.gray.cgColor
+        postCollectionView.layer.borderWidth = 1
+        postCollectionView.layer.borderColor = UIColor.gray.cgColor
     }
     
     func configureForProfileType(_ type: ProfileType){

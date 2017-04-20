@@ -36,7 +36,8 @@ class SignUpVC: UIViewController {
     }
     
     func setupUI() {
-        pictureImageView.layer.cornerRadius = 110
+       
+        pictureImageView.circlerImage()
         pictureImageView.layer.masksToBounds = true
         pictureImageView.layer.borderColor = UIColor.darkGray.cgColor
         pictureImageView.layer.borderWidth = 1.0

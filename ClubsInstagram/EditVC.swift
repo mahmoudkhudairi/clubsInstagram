@@ -33,6 +33,7 @@ class EditVC: UIViewController {
         }
         
         listenToFireBase()
+        setupUI()
 
        
     }
@@ -42,6 +43,18 @@ class EditVC: UIViewController {
        
     }
     
+    func setupUI() {
+       
+        profileImageView.layer.masksToBounds = true
+        
+        profileImageView.circlerImage()
+    }
+    
+    @IBAction func backButtonTapped(_ sender: Any) {
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
     func handleImage(){
         
         profileImageView.isUserInteractionEnabled = true
