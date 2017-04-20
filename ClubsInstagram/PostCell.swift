@@ -113,7 +113,12 @@ class PostCell: UITableViewCell {
             if !isLiked{
                 self.likeImage.image = UIImage(named: "empty-heart")
             }
-               self.numberOfLikesLabel.text = String("\(snapshot.childrenCount) likes")
+           
+               let numberOfLikes = String(snapshot.childrenCount)
+                self.numberOfLikesLabel.text = ("likes \(numberOfLikes)" )
+        
+            
+           
         })
         
    
