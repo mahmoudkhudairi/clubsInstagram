@@ -23,9 +23,11 @@ class FeedVC: UIViewController {
         
         postsTableView.delegate = self
         postsTableView.dataSource = self
+        self.posts.removeAll()
         
         fetchUsers()
         //fetchPost()
+        self.filterPost()
         postsTableView.reloadData()
         
         
@@ -41,7 +43,7 @@ class FeedVC: UIViewController {
                 self.following.append(allId)
                 print(allId)
             
-                self.filterPost()
+            
             
             
                 DispatchQueue.main.async(execute: {
