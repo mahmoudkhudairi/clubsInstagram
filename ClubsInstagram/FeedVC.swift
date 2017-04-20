@@ -26,6 +26,7 @@ class FeedVC: UIViewController {
         
         fetchUsers()
         //fetchPost()
+        postsTableView.reloadData()
         
         
     }
@@ -56,6 +57,8 @@ class FeedVC: UIViewController {
         FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
+                let post = Post(dictionary: dictionary)
+                post.id = snapshot.key
                 let userID = dictionary["userId"] as? String
                 
                 print("Id of postID", userID ?? "lol")
@@ -67,9 +70,12 @@ class FeedVC: UIViewController {
                         let postImageUrl = dictionary["postImageUrl"] as? String
                         let userName = dictionary["userName"] as? String
                         let userProfileImageURL = dictionary["userProfileImageURL"] as? String
+                 
                         
-                        let postByFollowed = Post(userName: userName!, caption: caption!, postImageUrl: postImageUrl!, userProfileImageURL: userProfileImageURL!)
-                           
+                    
+                        
+                        let postByFollowed = Post(userName: userName!, caption: caption!, postImageUrl: postImageUrl!, userProfileImageURL: userProfileImageURL!, id: post.id!)
+                        
                         self.posts.append(postByFollowed)
                         
                     }

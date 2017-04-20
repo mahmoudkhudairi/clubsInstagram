@@ -29,7 +29,8 @@ class Post {
         self.numberOfLikes = dictionary["numberOfLikes"] as? Int
     }
     
-    init(userName: String, caption : String, postImageUrl : String, userProfileImageURL: String) {
+    init(userName: String, caption : String, postImageUrl : String, userProfileImageURL: String , id: String) {
+        self.id = id
         self.userName = userName
         self.caption = caption
         self.postImageUrl = postImageUrl
