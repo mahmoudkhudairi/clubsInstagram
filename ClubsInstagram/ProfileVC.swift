@@ -28,12 +28,15 @@ class ProfileVC: UIViewController {
     var profileDesc : String? = ""
     var profileImage : String? = ""
     var numberOfPosts : Int? = 0
+    var postIds : [String] = []
+    var userUploadedPhotos = [Post]()
     @IBOutlet weak var followersnumberLabel: UILabel!
     @IBOutlet weak var followingNumberLabel: UILabel!
     @IBOutlet weak var postNumbersLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var postCollectionView: UICollectionView!
     
     
     override func viewDidLoad() {
@@ -48,7 +51,10 @@ class ProfileVC: UIViewController {
         getNumberofPosts()
         getNumberOfFollowers()
         getNumberOfFollowing()
-       
+        //fetchUsers()
+        filterPost()
+      // postCollectionView.delegate = self
+        postCollectionView.dataSource = self
     }
     
     func configureForProfileType(_ type: ProfileType){
@@ -89,6 +95,56 @@ class ProfileVC: UIViewController {
         super.didReceiveMemoryWarning()
    
     }
+    
+    func fetchUsers() {
+        FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("post").observe(.childAdded, with: { (snapshot) in
+            guard snapshot.exists() else { return }
+            
+            let allId = snapshot.key
+            self.postIds.append(allId)
+            print(allId)
+            
+            
+            
+            
+            DispatchQueue.main.async(execute: {
+                self.postCollectionView.reloadData()
+            })
+            
+        }, withCancel: nil)
+        
+        
+    }
+    
+    func filterPost() {
+        FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let post = Post(dictionary: dictionary)
+                post.id = snapshot.key
+                let userId = dictionary["userId"] as? String
+                
+            if userId == FIRAuth.auth()?.currentUser?.uid {
+                
+                let photoImageUrl = dictionary["postImageUrl"] as? String
+                
+                self.userUploadedPhotos.append(post)
+                
+                print("Id of postID", photoImageUrl ?? "lol")
+   
+                
+                
+                
+                DispatchQueue.main.async(execute: {
+                    self.postCollectionView.reloadData()
+                })
+                
+                }
+            }
+            
+        }, withCancel: nil)
+    }
+    
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         do {
@@ -161,3 +217,23 @@ class ProfileVC: UIViewController {
 
     
 }
+extension ProfileVC : UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+         let cell = postCollectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as! CollectionViewCell
+        
+        let post = userUploadedPhotos[indexPath.row]
+        
+        if let profileURL = post.postImageUrl {
+            cell.postImage.loadImageUsingCacheWithUrlString(profileURL)
+        }
+
+        return cell
+       
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return userUploadedPhotos.count
+        
+    }
+    
+}
+

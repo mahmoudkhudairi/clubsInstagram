@@ -187,19 +187,33 @@
                                 <rect key="frame" x="16" y="303" width="343" height="307"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xj5-uZ-khb">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="100" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vbf-UO-6X3">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="postCell" id="vbf-UO-6X3" customClass="CollectionViewCell" customModule="ClubsInstagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pri-Pm-7km">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                </imageView>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Pri-Pm-7km" secondAttribute="trailing" id="0Jo-ee-gLP"/>
+                                            <constraint firstItem="Pri-Pm-7km" firstAttribute="leading" secondItem="vbf-UO-6X3" secondAttribute="leading" id="baC-s4-JT6"/>
+                                            <constraint firstItem="Pri-Pm-7km" firstAttribute="top" secondItem="vbf-UO-6X3" secondAttribute="top" id="xKs-rY-J1E"/>
+                                            <constraint firstAttribute="bottom" secondItem="Pri-Pm-7km" secondAttribute="bottom" id="xNx-1w-MrJ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="postImage" destination="Pri-Pm-7km" id="2B2-b2-qjc"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -232,19 +246,19 @@
                                         <rect key="frame" x="17" y="0.0" width="214.5" height="17"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9I-zZ-MXM">
-                                                <rect key="frame" x="0.0" y="0.0" width="61.5" height="17"/>
+                                                <rect key="frame" x="0.5" y="0.0" width="61.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Following" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3M-1s-BXe">
-                                                <rect key="frame" x="76.5" y="0.0" width="61.5" height="17"/>
+                                                <rect key="frame" x="77" y="0.0" width="61.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followers" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Am6-Fh-zz8">
-                                                <rect key="frame" x="153" y="0.0" width="61.5" height="17"/>
+                                                <rect key="frame" x="153.5" y="0.0" width="61.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -292,6 +306,7 @@
                         <outlet property="followersnumberLabel" destination="Am6-Fh-zz8" id="jpN-p3-JH1"/>
                         <outlet property="followingNumberLabel" destination="F3M-1s-BXe" id="REb-5L-ZNK"/>
                         <outlet property="nameLabel" destination="hnA-x1-cVo" id="4Jx-j5-tuR"/>
+                        <outlet property="postCollectionView" destination="NLA-cg-ljY" id="jz5-rp-eHf"/>
                         <outlet property="postNumbersLabel" destination="Z9I-zZ-MXM" id="K1p-ac-mUg"/>
                         <outlet property="profileImageView" destination="DTi-lv-kuz" id="1rm-r2-8Ef"/>
                     </connections>

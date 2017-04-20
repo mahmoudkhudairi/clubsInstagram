@@ -27,8 +27,10 @@ class FeedVC: UIViewController {
         
         fetchUsers()
         //fetchPost()
-        self.filterPost()
+        
+        
         postsTableView.reloadData()
+        
         
         
     }
@@ -41,7 +43,7 @@ class FeedVC: UIViewController {
             
                 let allId = snapshot.key
                 self.following.append(allId)
-                print(allId)
+                print("I am following",allId)
             
             
             
@@ -52,7 +54,7 @@ class FeedVC: UIViewController {
 
         }, withCancel: nil)
         
-        
+         self.filterPost()
     }
     
     func filterPost() {
@@ -63,7 +65,7 @@ class FeedVC: UIViewController {
                 post.id = snapshot.key
                 let userID = dictionary["userId"] as? String
                 
-                print("Id of postID", userID ?? "lol")
+                //print("Id of postID", userID ?? "lol")
                 
 
                 for each in self.following {

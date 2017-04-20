@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		242235E41EA86BEC00D833D0 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242235E31EA86BEC00D833D0 /* CollectionViewCell.swift */; };
 		244970FA1EA4C588005045CF /* FriendProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244970F91EA4C588005045CF /* FriendProfileVC.swift */; };
 		247AFF9D1EA0BD8C00C8A9E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247AFF9C1EA0BD8C00C8A9E9 /* AppDelegate.swift */; };
 		247AFFA21EA0BD8C00C8A9E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 247AFFA01EA0BD8C00C8A9E9 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		1671A2B60ACCBDEDB964E760 /* Pods-ClubsInstagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubsInstagram.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubsInstagram/Pods-ClubsInstagram.release.xcconfig"; sourceTree = "<group>"; };
+		242235E31EA86BEC00D833D0 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		244970F91EA4C588005045CF /* FriendProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendProfileVC.swift; sourceTree = "<group>"; };
 		247AFF991EA0BD8C00C8A9E9 /* ClubsInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubsInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		247AFF9C1EA0BD8C00C8A9E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				247AFFBE1EA0CC2000C8A9E9 /* PostCell.xib */,
 				24FF8F091EA2031A008A38D2 /* FriendCell.swift */,
 				24FF8F0A1EA2031A008A38D2 /* FriendCell.xib */,
+				242235E31EA86BEC00D833D0 /* CollectionViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 			files = (
 				247AFFBA1EA0CAAB00C8A9E9 /* SearchVC.swift in Sources */,
 				247AFFC41EA0D14200C8A9E9 /* EditVC.swift in Sources */,
+				242235E41EA86BEC00D833D0 /* CollectionViewCell.swift in Sources */,
 				247AFFB81EA0CA9200C8A9E9 /* ProfileVC.swift in Sources */,
 				247AFFB61EA0C74C00C8A9E9 /* FeedVC.swift in Sources */,
 				249FC1BD1EA24D7800B610D4 /* Post.swift in Sources */,
