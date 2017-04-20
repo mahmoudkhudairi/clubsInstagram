@@ -158,7 +158,7 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
 //
         
         //3 conform
-        cell.delegate = self
+       // cell.delegate = self
         //cell.updatepostLikesNumber(post.id!)
         return cell
     }
@@ -172,11 +172,11 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
 }
 
 
-extension FeedVC : PostCellDelegate {
-    func likeImageTapped(withID: String) {
-      //  let numberOflike : [String:Any] = ["numberOfLikes":withNum]
-      //  FIRDatabase.database().reference().child("posts").child(withID).updateChildValues(numberOflike)
-        
-print("hi from delegate Feed")
-    }
-}
+//extension FeedVC : PostCellDelegate {
+//    func likeImageTapped(withID: String) {
+//      //  let numberOflike : [String:Any] = ["numberOfLikes":withNum]
+//      //  FIRDatabase.database().reference().child("posts").child(withID).updateChildValues(numberOflike)
+//        
+//print("hi from delegate Feed")
+//    }
+//}

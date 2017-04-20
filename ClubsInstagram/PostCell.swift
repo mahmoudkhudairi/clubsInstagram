@@ -25,6 +25,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userProfileImageView: UIImageView!
     //2 set
+    
     weak var delegate : PostCellDelegate?
     var postIdentifier : String?
     
@@ -110,6 +111,7 @@ class PostCell: UITableViewCell {
         
         ref.child("posts").child(postID).child("likes").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
             print(snapshot.childrenCount)
+           
             if let likes = snapshot.value as? [String : AnyObject] {
                 for (ke, _) in likes {
                     if ke  == uid {
