@@ -15,6 +15,7 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signupButton: UIButton!
     
     var ref: FIRDatabaseReference!
  
@@ -24,8 +25,25 @@ class SignUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         handleImage()
+        setupUI()
         
     }
+    
+    
+    @IBAction func backButtonPressed(_ sender: Any) {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func setupUI() {
+        pictureImageView.layer.cornerRadius = 110
+        pictureImageView.layer.masksToBounds = true
+        pictureImageView.layer.borderColor = UIColor.darkGray.cgColor
+        pictureImageView.layer.borderWidth = 1.0
+        signupButton.layer.borderWidth = 1.0
+        signupButton.layer.borderColor = UIColor.blue.cgColor
+    }
+    
     
     func handleImage(){
         
@@ -53,6 +71,10 @@ class SignUpVC: UIViewController {
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
             if error != nil {
+                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+                alert.addAction(ok)
+                self.present(alert, animated: true, completion: nil)
                 print(error!)
                 return
             }

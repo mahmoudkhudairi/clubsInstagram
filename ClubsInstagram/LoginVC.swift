@@ -15,21 +15,37 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var fbLoginButton: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var inAppLoginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupUI()
         
         let loginButton = FBSDKLoginButton()
         view.addSubview(loginButton)
         
-        loginButton.frame = CGRect(x: 16, y: 500, width: view.frame.width - 32, height: 50)
+        loginButton.frame = CGRect(x: 16, y: 570, width: view.frame.width - 40, height: 50)
         
         loginButton.addTarget(self, action: #selector(loginToAppUsingFacebook), for: .touchUpInside)
+        
+        
         
         //loginButton.delegate = self
   
       
 
     }
+    
+    func setupUI() {
+        inAppLoginButton.layer.borderWidth = 1.0
+        inAppLoginButton.layer.borderColor = UIColor.blue.cgColor
+        
+        signupButton.layer.borderWidth = 1.0
+        signupButton.layer.borderColor = UIColor.gray.cgColor
+    }
+    
+  
 
   
     

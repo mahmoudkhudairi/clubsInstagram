@@ -29,7 +29,6 @@ class PostCell: UITableViewCell {
     
     weak var delegate : PostCellDelegate?
     var postIdentifier : String?
-    
     var numberOflikes = Int()
     var likeIsTapped  = false
     static let cellIdentifier = "PostCell"
@@ -141,7 +140,8 @@ class PostCell: UITableViewCell {
                 self.likeImage.image = UIImage(named: "empty-heart")
             }
            
-               self.numberOfLikesLabel.text = String(snapshot.childrenCount)
+               let numberOfLikes = String(snapshot.childrenCount)
+                self.numberOfLikesLabel.text = ("likes \(numberOfLikes)" )
         
             
            
