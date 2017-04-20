@@ -530,6 +530,69 @@
             </objects>
             <point key="canvasLocation" x="2717.5999999999999" y="-912.5937031484259"/>
         </scene>
+        <!--CommentsVC-->
+        <scene sceneID="aae-3o-BJ2">
+            <objects>
+                <viewController storyboardIdentifier="CommentVC" id="Ug1-Cy-YzU" customClass="CommentsVC" customModule="ClubsInstagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fDq-5m-DWa"/>
+                        <viewControllerLayoutGuide type="bottom" id="k80-VW-cvc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7hd-ab-YMd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VmE-ZS-BTp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="605"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1eK-yT-fFv">
+                                <rect key="frame" x="16" y="617" width="343" height="30"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Jh-nX-tIl">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="pDf-cQ-8v6"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1z4-d9-fcc">
+                                        <rect key="frame" x="312" y="0.0" width="31" height="30"/>
+                                        <state key="normal" title="post"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VmE-ZS-BTp" firstAttribute="top" secondItem="fDq-5m-DWa" secondAttribute="bottom" constant="-64" id="1RZ-lV-Xzj"/>
+                            <constraint firstItem="VmE-ZS-BTp" firstAttribute="leading" secondItem="7hd-ab-YMd" secondAttribute="leading" id="8uz-64-1tx"/>
+                            <constraint firstItem="1eK-yT-fFv" firstAttribute="leading" secondItem="7hd-ab-YMd" secondAttribute="leadingMargin" id="ETg-UO-fK3"/>
+                            <constraint firstItem="1eK-yT-fFv" firstAttribute="top" secondItem="VmE-ZS-BTp" secondAttribute="bottom" constant="12" id="U6n-GA-nzW"/>
+                            <constraint firstAttribute="bottom" secondItem="1eK-yT-fFv" secondAttribute="bottom" constant="20" symbolic="YES" id="YEj-WV-2mb"/>
+                            <constraint firstAttribute="trailing" secondItem="VmE-ZS-BTp" secondAttribute="trailing" id="YgM-dk-qov"/>
+                            <constraint firstItem="1eK-yT-fFv" firstAttribute="centerX" secondItem="VmE-ZS-BTp" secondAttribute="centerX" id="stF-Cg-ne2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="UhO-HW-iso">
+                        <barButtonItem key="leftBarButtonItem" title="back" id="lYb-Ud-5dM">
+                            <connections>
+                                <action selector="backButtonPressed:" destination="Ug1-Cy-YzU" id="zOS-TC-01A"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="commentTextField" destination="4Jh-nX-tIl" id="z15-fe-cEz"/>
+                        <outlet property="commentsTableView" destination="VmE-ZS-BTp" id="MfS-HO-v9j"/>
+                        <outlet property="postButton" destination="1z4-d9-fcc" id="U22-vx-TBP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fDT-El-USt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4661.6000000000004" y="-913.49325337331345"/>
+        </scene>
         <!--Friend ProfileVC-->
         <scene sceneID="e2g-aZ-rxd">
             <objects>
@@ -695,6 +758,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wic-qQ-hw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3656.8000000000002" y="1351.5742128935533"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JDd-cg-9Kw">
+            <objects>
+                <navigationController storyboardIdentifier="CommentVCNAV" automaticallyAdjustsScrollViewInsets="NO" id="PEd-1P-rbV" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lMZ-2Z-id7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ug1-Cy-YzU" kind="relationship" relationship="rootViewController" id="YVT-jN-zsk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lE7-jj-5RN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3714" y="-913"/>
         </scene>
     </scenes>
     <resources>

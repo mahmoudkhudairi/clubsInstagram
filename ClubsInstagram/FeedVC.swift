@@ -14,8 +14,8 @@ class FeedVC: UIViewController {
     var following = [String]()
     var postsUsersIds = [String]()
     @IBOutlet weak var postsTableView: UITableView!{
-         didSet{
-         postsTableView.register(PostCell.cellNib, forCellReuseIdentifier: PostCell.cellIdentifier)
+        didSet{
+            postsTableView.register(PostCell.cellNib, forCellReuseIdentifier: PostCell.cellIdentifier)
         }
     }
     override func viewDidLoad() {
@@ -35,26 +35,26 @@ class FeedVC: UIViewController {
         
     }
     
-  
-
+    
+    
     func fetchUsers() {
         FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("following").observe(.childAdded, with: { (snapshot) in
-                guard snapshot.exists() else { return }
+            guard snapshot.exists() else { return }
             
-                let allId = snapshot.key
-                self.following.append(allId)
-                print("I am following",allId)
-            
-            
+            let allId = snapshot.key
+            self.following.append(allId)
+            print("I am following",allId)
             
             
-                DispatchQueue.main.async(execute: {
-                    self.postsTableView.reloadData()
-                })
-
+            
+            
+            DispatchQueue.main.async(execute: {
+                self.postsTableView.reloadData()
+            })
+            
         }, withCancel: nil)
         
-         self.filterPost()
+        self.filterPost()
     }
     
     func filterPost() {
@@ -67,16 +67,16 @@ class FeedVC: UIViewController {
                 
                 //print("Id of postID", userID ?? "lol")
                 
-
+                
                 for each in self.following {
                     if userID == each {
                         let caption = dictionary["caption"] as? String
                         let postImageUrl = dictionary["postImageUrl"] as? String
                         let userName = dictionary["userName"] as? String
                         let userProfileImageURL = dictionary["userProfileImageURL"] as? String
-                 
                         
-                    
+                        
+                        
                         
                         let postByFollowed = Post(userName: userName!, caption: caption!, postImageUrl: postImageUrl!, userProfileImageURL: userProfileImageURL!, id: post.id!)
                         
@@ -86,7 +86,7 @@ class FeedVC: UIViewController {
                 }
                 
                 
-   
+                
                 DispatchQueue.main.async(execute: {
                     self.postsTableView.reloadData()
                 })
@@ -121,13 +121,13 @@ class FeedVC: UIViewController {
             
         }, withCancel: nil)
     }
-   
+    
 }
 
 extension FeedVC: UITableViewDelegate,UITableViewDataSource{
     
-   
-
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
@@ -153,14 +153,14 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         cell.callTapGesture()
         cell.postIdentifier = post.id
         cell.checkLiked(postID: post.id!, indexpath:indexPath)
-       
-      
         
-//        cell.observeLikesOnPost(post.id!)
-//
+        
+        
+        //        cell.observeLikesOnPost(post.id!)
+        //
         
         //3 conform
-       // cell.delegate = self
+        cell.delegate = self
         //cell.updatepostLikesNumber(post.id!)
         return cell
     }
@@ -174,11 +174,26 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
 }
 
 
+extension FeedVC : PostCellDelegate {
+    func likeImageTapped(withID: String) {
+        //nth
+    }
+    
+    func goToCommentVC(withID: String?) {
+        guard let navController = storyboard?.instantiateViewController(withIdentifier: "CommentVCNAV") as? UINavigationController else { return }
+        let commentVCController = navController.childViewControllers.first as? CommentsVC
+        commentVCController?.currentPostID = withID!
+        
+        
+        //    friendsTableView.deselectRow(at: indexPath, animated: true)
+        present(navController, animated: true, completion: nil)
+    }
+}
 //extension FeedVC : PostCellDelegate {
 //    func likeImageTapped(withID: String) {
 //      //  let numberOflike : [String:Any] = ["numberOfLikes":withNum]
 //      //  FIRDatabase.database().reference().child("posts").child(withID).updateChildValues(numberOflike)
-//        
+//
 //print("hi from delegate Feed")
 //    }
 //}

@@ -11,6 +11,7 @@ import Firebase
 //1 declear
 protocol PostCellDelegate: class {
     func likeImageTapped(withID : String)
+    func goToCommentVC(withID : String?)
 }
 class PostCell: UITableViewCell {
 
@@ -60,12 +61,22 @@ class PostCell: UITableViewCell {
      func callTapGesture(){
      
         //numberOflikes += 1
-     let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
-     tap.numberOfTapsRequired = 2
-     self.addGestureRecognizer(tap)
+     let tapLike = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
+     tapLike.numberOfTapsRequired = 2
+     self.addGestureRecognizer(tapLike)
      self.isUserInteractionEnabled = true
+        let tapComment = UITapGestureRecognizer(target: self, action: #selector(self.handleComment))
+       
+        self.addGestureRecognizer(tapComment)
+        self.isUserInteractionEnabled = true
      }
-//
+
+    func handleComment(){
+        delegate?.goToCommentVC(withID: postIdentifier)
+//        let commentVCController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CommentVC")
+//         present(commentVCController, animated: true, completion: nil)
+       
+    }
      func handleLike (){
         print("hi from handleLike")
 //      numberOflikes += 1
