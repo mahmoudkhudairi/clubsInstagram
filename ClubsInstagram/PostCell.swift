@@ -10,11 +10,11 @@ import UIKit
 import Firebase
 //1 declear
 protocol PostCellDelegate: class {
-    func likeImageTapped(withID : String)
     func goToCommentVC(withID : String?)
 }
 class PostCell: UITableViewCell {
 
+    @IBOutlet weak var viewAllCommentsButton: UIButton!
     @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet weak var numberOfLikesLabel: UILabel!
     @IBOutlet weak var likeNumbersLabel: UILabel!
@@ -29,35 +29,13 @@ class PostCell: UITableViewCell {
     
     weak var delegate : PostCellDelegate?
     var postIdentifier : String?
-    
-    var numberOflikes = Int()
-    var likeIsTapped  = false
     static let cellIdentifier = "PostCell"
     static let cellNib = UINib(nibName: PostCell.cellIdentifier, bundle: Bundle.main)
     override func awakeFromNib() {
         super.awakeFromNib()
-//        var like = likeImageIstapped()
-      
-         
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
-    
-    
- 
-    
-     func observeLikesOnPost(_ postID: String) {
-        //FIRDatabase.database().reference().child("posts").child(postID).child("numberOfLikes").observe(.value, with: { (snapshot) in
+        viewAllCommentsButton.addTarget(self, action: #selector(handleComment), for: .touchUpInside)
         
-       
-            print("hi From DelegateCell")
-       // })
-     }
+    }
      func callTapGesture(){
      
         //numberOflikes += 1
@@ -76,19 +54,13 @@ class PostCell: UITableViewCell {
 
     func handleComment(){
         delegate?.goToCommentVC(withID: postIdentifier)
-//        let commentVCController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CommentVC")
-//         present(commentVCController, animated: true, completion: nil)
-       
+    }
+    func fetchComentsCount(){
+        FIRDatabase.database().reference().child("posts").child(postIdentifier!).child("comments").observe(.value, with: { (snapshot) in
+             self.viewAllCommentsButton.setTitle("View all \(snapshot.childrenCount) comments", for: .normal)
+        })
     }
      func handleLike (){
-        print("hi from handleLike")
-//      numberOflikes += 1
-  //  likeImage.image = UIImage(named: "filled-heart")
-//        
-        if let postIdentifier = postIdentifier{
-            delegate?.likeImageTapped(withID: postIdentifier)
-        }
-        
          let uid = FIRAuth.auth()!.currentUser!.uid
          var isLiked = false
          let ref = FIRDatabase.database().reference()
@@ -110,21 +82,23 @@ class PostCell: UITableViewCell {
          let likes = ["likes/\(uid)" : true ]
          ref.child("posts").child(self.postIdentifier!).updateChildValues(likes)
          self.likeImage.image = UIImage(named: "filled-heart")
+         
          }
+            
+            self.checkLiked(postID: self.postIdentifier!)
          })
          ref.removeAllObservers()
          
          }
     //checking already liked
-    func checkLiked(postID:String, indexpath:IndexPath) {
-       // let cell = self.postsTableView.cellForRow(at: indexpath) as! PostCell
-        
+    func checkLiked(postID:String) {
+      
         let uid = FIRAuth.auth()!.currentUser!.uid
         var isLiked = false
         let ref = FIRDatabase.database().reference()
         
         ref.child("posts").child(postID).child("likes").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-            print(snapshot.childrenCount)
+            
            
             if let likes = snapshot.value as? [String : AnyObject] {
                 for (ke, _) in likes {
@@ -137,14 +111,9 @@ class PostCell: UITableViewCell {
                 }
             }
             if !isLiked{
-                //change empty
                 self.likeImage.image = UIImage(named: "empty-heart")
             }
-           
-               self.numberOfLikesLabel.text = String(snapshot.childrenCount)
-        
-            
-           
+               self.numberOfLikesLabel.text = String("\(snapshot.childrenCount) likes")
         })
         
    

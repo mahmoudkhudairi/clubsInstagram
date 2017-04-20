@@ -152,8 +152,8 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         cell.captionTextView.text = post.caption
         cell.callTapGesture()
         cell.postIdentifier = post.id
-        cell.checkLiked(postID: post.id!, indexpath:indexPath)
-        
+        cell.checkLiked(postID: post.id!)
+        cell.fetchComentsCount()
         
         
         //        cell.observeLikesOnPost(post.id!)
@@ -175,25 +175,11 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
 
 
 extension FeedVC : PostCellDelegate {
-    func likeImageTapped(withID: String) {
-        //nth
-    }
-    
     func goToCommentVC(withID: String?) {
         guard let navController = storyboard?.instantiateViewController(withIdentifier: "CommentVCNAV") as? UINavigationController else { return }
         let commentVCController = navController.childViewControllers.first as? CommentsVC
         commentVCController?.currentPostID = withID!
-        
-        
-        //    friendsTableView.deselectRow(at: indexPath, animated: true)
         present(navController, animated: true, completion: nil)
     }
 }
-//extension FeedVC : PostCellDelegate {
-//    func likeImageTapped(withID: String) {
-//      //  let numberOflike : [String:Any] = ["numberOfLikes":withNum]
-//      //  FIRDatabase.database().reference().child("posts").child(withID).updateChildValues(numberOflike)
-//
-//print("hi from delegate Feed")
-//    }
-//}
+
