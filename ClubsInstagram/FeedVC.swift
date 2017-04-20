@@ -30,7 +30,7 @@ class FeedVC: UIViewController {
         
     }
     
-    
+  
 
     func fetchUsers() {
         FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).child("following").observe(.childAdded, with: { (snapshot) in
@@ -113,6 +113,7 @@ class FeedVC: UIViewController {
     }
    
 }
+
 extension FeedVC: UITableViewDelegate,UITableViewDataSource{
     
    
@@ -139,15 +140,17 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
             cell.postImage.loadImageUsingCacheWithUrlString(postImageUrl)
         }
         cell.captionTextView.text = post.caption
-        //cell.callTapGesture()
+        cell.callTapGesture()
         cell.postIdentifier = post.id
-        //cell.numberOflikes = post.numberOfLikes
+        cell.checkLiked(postID: post.id!, indexpath:indexPath)
+       
+      
         
 //        cell.observeLikesOnPost(post.id!)
-//        print("postid in CellforRow   ",post.id!)
+//
         
         //3 conform
-        //cell.delegate = self
+        cell.delegate = self
         //cell.updatepostLikesNumber(post.id!)
         return cell
     }
@@ -155,14 +158,17 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         return true
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.postsTableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
-//
-//extension FeedVC : PostCellDelegate {
-//    func likeImageTapped(withID: String, withNum: Int) {
-//        let numberOflike : [String:Any] = ["numberOfLikes":withNum]
-//        FIRDatabase.database().reference().child("posts").child(withID).updateChildValues(numberOflike)
-//        
-//    }
-//}
+
+extension FeedVC : PostCellDelegate {
+    func likeImageTapped(withID: String) {
+      //  let numberOflike : [String:Any] = ["numberOfLikes":withNum]
+      //  FIRDatabase.database().reference().child("posts").child(withID).updateChildValues(numberOflike)
+        
+print("hi from delegate Feed")
+    }
+}
