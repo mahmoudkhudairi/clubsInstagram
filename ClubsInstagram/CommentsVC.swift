@@ -36,18 +36,25 @@ class CommentsVC: UIViewController {
      
         ref.child("posts").child(currentPostID).child("comments").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
             
-//             let comment = ["likes/\(uid)" : true ]
-//                ref.child("posts").child(self.postIdentifier!).updateChildValues(likes)
-//                self.likeImage.image = UIImage(named: "filled-heart")
-//            }
-//        })
-//        ref.removeAllObservers()
-//        
-//    }
-//                
-//     
-//    }
-   
+             let comment = ["comments/\(self.uid)" : true ]
+                self.ref.child("posts").child(self.currentPostID).updateChildValues(comment)
+           
+            let commentText = ["\(self.commentTextField.text)": true]
+            self.ref.child("posts").child(self.currentPostID).child("comments").child(self.uid).updateChildValues(commentText)
+           
+            
+            })
+         ref.removeAllObservers()
+    }
+    
+    
+        
+    
+                
+     
+
+
+
     func fetchUser() {
         FIRDatabase.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
             
