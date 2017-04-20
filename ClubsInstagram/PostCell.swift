@@ -124,10 +124,9 @@ class PostCell: UITableViewCell {
                 //change empty
                 self.likeImage.image = UIImage(named: "empty-heart")
             }
-            //testing this??!! its not updated only after i open app agin
-            DispatchQueue.main.async(execute: {
+           
                self.numberOfLikesLabel.text = String(snapshot.childrenCount)
-            })
+        
             
            
         })

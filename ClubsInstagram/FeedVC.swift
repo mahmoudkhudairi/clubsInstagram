@@ -26,7 +26,7 @@ class FeedVC: UIViewController {
         
         fetchUsers()
         fetchPost()
-       
+      
     }
     
   
@@ -69,6 +69,7 @@ class FeedVC: UIViewController {
     }
    
 }
+
 extension FeedVC: UITableViewDelegate,UITableViewDataSource{
     
    
