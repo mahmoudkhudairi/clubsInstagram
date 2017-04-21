@@ -14,7 +14,7 @@ class UploadVC: UIViewController {
     var postIsLiked = false
     var numberOfPostLikes = 0
     var postNum = 0
-    
+    var postId = ""
     
     @IBOutlet weak var UploadButton: UIButton!
     @IBOutlet weak var captionTextView: UITextView!
@@ -23,17 +23,11 @@ class UploadVC: UIViewController {
         super.viewDidLoad()
        
         handleImage()
-        setupUI()
+       
+        UploadButton.isEnabled = false
     }
     
-    func setupUI() {
         
-        UploadButton.layer.borderWidth = 1
-        UploadButton.layer.borderColor = UIColor.blue.cgColor
-        
-        
-    }
-    
    
     
     @IBAction func UploadButtonTapped(_ sender: Any) {
@@ -82,7 +76,7 @@ class UploadVC: UIViewController {
                         //TODO:Add the liked bool and Int
                         let values = ["caption": captionText, "userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes] as [String : Any]
                         self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
-                        self.registerUsersToDB()
+                        
                     }, withCancel: nil)
                    
                    
@@ -91,50 +85,40 @@ class UploadVC: UIViewController {
                 
             })
            
-      
+            self.tabBarController?.selectedIndex = 0
             self.photoImageView.image = UIImage(named: "tapmeimage")
-        self.tabBarController?.selectedIndex = 0
+        
             
 
         }
         
     }
-    func registerUsersToDB(){
-        FIRDatabase.database().reference().child("posts").observe( .childAdded, with: { (snapshot) in
-            
-            
-            
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                let post = Post(dictionary: dictionary)
-                post.id = snapshot.key
-                
-                let posts = ["posts/\(post.id!)" : true]
-                
-                FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).updateChildValues(posts)
-            }
-        })
-        }
+
     func registerPostIntoDataBase(_ uid: String, values: [String: Any]) {
         let ref = FIRDatabase.database().reference(fromURL: "https://clubsinstagram.firebaseio.com/")
-        let PostsReference = ref.child("posts").childByAutoId()
-    
- 
-        PostsReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+       
+        let postsReference = ref.child("posts").childByAutoId()
+        postsReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
             
             if err != nil {
                 print("Error saving user: \(err)")
                 return
             }
             
+            let posts = ["posts/\( postsReference.key)" : true]
             
+            FIRDatabase.database().reference().child("users").child((FIRAuth.auth()?.currentUser?.uid)!).updateChildValues(posts)
+           
             
         })
-        
+      
          self.captionTextView.text = ""
+        
     }
    
     func handleImage(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(choosePostImage))
+        
         photoImageView.isUserInteractionEnabled = true
        photoImageView.addGestureRecognizer(tap)
     }
@@ -144,6 +128,7 @@ class UploadVC: UIViewController {
         picker.delegate = self
         picker.allowsEditing = true
         present(picker, animated: true, completion: nil)
+        
     }
     
     
@@ -178,6 +163,7 @@ extension UploadVC : UIImagePickerControllerDelegate, UINavigationControllerDele
         }
         
         dismiss(animated: true, completion: nil)
+        UploadButton.isEnabled = true
     }
     
 }

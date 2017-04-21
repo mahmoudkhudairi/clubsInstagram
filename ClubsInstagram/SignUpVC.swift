@@ -95,7 +95,7 @@ class SignUpVC: UIViewController {
                         return
                     }
                     if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl, "desc": "Say something about yourself", "uid" : uid] as [String : Any]
+                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl, "desc": "", "uid" : uid] as [String : Any]
                         self.registerUserIntoDatabaseWithUID(uid, values: values as [String : AnyObject])
                           let initController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
                           ad.window?.rootViewController = initController

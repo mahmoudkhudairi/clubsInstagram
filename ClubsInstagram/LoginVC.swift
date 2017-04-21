@@ -25,7 +25,7 @@ class LoginVC: UIViewController {
         let loginButton = FBSDKLoginButton()
         view.addSubview(loginButton)
         
-        loginButton.frame = CGRect(x: 16, y: 570, width: view.frame.width - 40, height: 50)
+        loginButton.frame = CGRect(x: 16, y: 550, width: view.frame.width - 40, height: 50)
         
         loginButton.addTarget(self, action: #selector(loginToAppUsingFacebook), for: .touchUpInside)
         
@@ -72,7 +72,7 @@ class LoginVC: UIViewController {
     }
 
     @IBAction func SignUpButtonTapped(_ sender: Any) {
-        let signupController = storyboard?.instantiateViewController(withIdentifier: "SignUpVC")
+        let signupController = storyboard?.instantiateViewController(withIdentifier: "SignUpVCNAV")
             present(signupController!, animated: true, completion: nil)
         
         

@@ -151,7 +151,7 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         }
         cell.userProfileImageView.circlerImage()
         cell.userProfileImageView.layer.borderWidth = 1.0
-        cell.userProfileImageView.layer.borderColor = UIColor.yellow.cgColor
+        cell.userProfileImageView.layer.borderColor = UIColor.purple.cgColor
         cell.captionTextView.text = post.caption
         cell.callTapGesture()
         cell.postIdentifier = post.id

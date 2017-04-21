@@ -186,7 +186,8 @@ class ProfileVC: UIViewController {
     
     @IBAction func editProfileButtonPressed(_ sender: Any) {
         
-        if let editController = storyboard?.instantiateViewController(withIdentifier: "EditVC") {
+        if let editController = storyboard?.instantiateViewController(withIdentifier: "EditVCNAV") {
+           // navigationController?.pushViewController(editController, animated: true)
             present(editController, animated: true, completion: nil)
         }
         

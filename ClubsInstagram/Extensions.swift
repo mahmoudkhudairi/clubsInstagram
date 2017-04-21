@@ -10,6 +10,7 @@ import UIKit
 
 let imageCache = NSCache<AnyObject, AnyObject>()
 
+
 extension UIImageView {
    
     func circlerImage(){
@@ -18,7 +19,7 @@ extension UIImageView {
     }
     
     
-    
+
     
     
     func loadImageUsingCacheWithUrlString(_ urlString: String) {
