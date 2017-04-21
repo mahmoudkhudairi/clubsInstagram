@@ -92,6 +92,9 @@ class EditVC: UIViewController {
        self.dismiss(animated: true, completion: nil)
         
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     func uploadImage(_ image: UIImage) {
         let imageName = FIRAuth.auth()?.currentUser?.email

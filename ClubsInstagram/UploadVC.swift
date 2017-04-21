@@ -84,9 +84,9 @@ class UploadVC: UIViewController {
                
                 
             })
-           
-            self.tabBarController?.selectedIndex = 0
             self.photoImageView.image = UIImage(named: "tapmeimage")
+            self.tabBarController?.selectedIndex = 0
+           
         
             
 

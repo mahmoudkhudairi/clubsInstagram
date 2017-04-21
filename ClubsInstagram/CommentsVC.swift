@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class CommentsVC: UIViewController {
+class CommentsVC: UIViewController,UITextFieldDelegate {
     var currentPostID = ""
      var commentId :Int = 0
        let uid = FIRAuth.auth()!.currentUser!.uid
@@ -82,6 +82,35 @@ class CommentsVC: UIViewController {
     
     @IBAction func backButtonPressed(_ sender: Any) {
          dismiss(animated: true, completion: nil)
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField: commentTextField, moveDistance: -250, up: true)
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField: commentTextField, moveDistance: -250, up: false)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        commentTextField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
+    func moveTextField(textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
     }
     
 }

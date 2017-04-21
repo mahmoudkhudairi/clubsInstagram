@@ -22,19 +22,26 @@ class LoginVC: UIViewController {
         
         setupUI()
         
-        let loginButton = FBSDKLoginButton()
-        view.addSubview(loginButton)
+        let fbLoginButton = FBSDKLoginButton()
+        view.addSubview(fbLoginButton)
         
-        loginButton.frame = CGRect(x: 16, y: 550, width: view.frame.width - 40, height: 50)
+        fbLoginButton.frame = CGRect(x: 16, y: 550, width: view.frame.width - 40, height: 50)
         
-        loginButton.addTarget(self, action: #selector(loginToAppUsingFacebook), for: .touchUpInside)
+        fbLoginButton.addTarget(self, action: #selector(loginToAppUsingFacebook), for: .touchUpInside)
         
-        
+        setupFBbutton()
         
         //loginButton.delegate = self
   
       
 
+    }
+    func setupFBbutton(){
+//        //fbLoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        fbLoginButton.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -12).isActive = true //-12
+//        
+//       fbLoginButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
+//        fbLoginButton.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
     func setupUI() {
@@ -76,6 +83,10 @@ class LoginVC: UIViewController {
             present(signupController!, animated: true, completion: nil)
         
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func goToFeedVC() {

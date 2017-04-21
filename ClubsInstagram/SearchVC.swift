@@ -35,6 +35,10 @@ class SearchVC: UIViewController,UISearchBarDelegate {
         searchBar.delegate = self
         self.friendsTableView.tableHeaderView = searchBar
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     // MARK: - search bar delegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {

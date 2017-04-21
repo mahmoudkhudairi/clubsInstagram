@@ -10,7 +10,14 @@ import UIKit
 
 let imageCache = NSCache<AnyObject, AnyObject>()
 
-
+extension UITextField: UITextFieldDelegate{
+//    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        self.resignFirstResponder()
+//        return true
+//    }
+    
+    
+}
 extension UIImageView {
    
     func circlerImage(){
