@@ -36,9 +36,18 @@ class PostCell: UITableViewCell {
         viewAllCommentsButton.addTarget(self, action: #selector(handleComment), for: .touchUpInside)
         
     }
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    numberOfLikesLabel.text = ""
+    likeNumbersLabel.text = ""
+    captionTextView.text = ""
+    postImage.image = nil
+    userNameLabel.text = ""
+    userProfileImageView.image = nil
+    
+  }
      func callTapGesture(){
-     
-        //numberOflikes += 1
+
      let tapLike = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
         let cellTapLike = UITapGestureRecognizer(target: self, action: #selector(self.handleLike))
      cellTapLike.numberOfTapsRequired = 2
@@ -97,7 +106,7 @@ class PostCell: UITableViewCell {
         var isLiked = false
         let ref = FIRDatabase.database().reference()
         
-        ref.child("posts").child(postID).child("likes").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+    ref.child("posts").child(postID).child("likes").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
             
            
             if let likes = snapshot.value as? [String : AnyObject] {
@@ -105,8 +114,7 @@ class PostCell: UITableViewCell {
                     if ke  == uid {
                         isLiked = true
                         self.likeImage.image = UIImage(named: "filled-heart")
-                        
-                        
+                      
                     }
                 }
             }
@@ -116,16 +124,8 @@ class PostCell: UITableViewCell {
            
                let numberOfLikes = String(snapshot.childrenCount)
                 self.numberOfLikesLabel.text = ("likes \(numberOfLikes)" )
-        
-            
-           
         })
-        
-   
     }
-
-    
-      
        
      }
     

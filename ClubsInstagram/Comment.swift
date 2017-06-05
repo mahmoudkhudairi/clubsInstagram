@@ -26,10 +26,5 @@ class Comment {
         self.userId = dictionary["userId"] as? String
         
     }
-   
-
-   
-    
-  
     
 }

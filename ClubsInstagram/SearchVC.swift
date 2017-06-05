@@ -117,6 +117,7 @@ extension SearchVC: UITableViewDelegate,UITableViewDataSource{
         friendVCController?.currentUserID = selectedUser.id!
         
         
+        
     //    friendsTableView.deselectRow(at: indexPath, animated: true)
         present(navController, animated: true, completion: nil)
         

@@ -95,7 +95,7 @@ class UploadVC: UIViewController {
     }
 
     func registerPostIntoDataBase(_ uid: String, values: [String: Any]) {
-        let ref = FIRDatabase.database().reference(fromURL: "https://clubsinstagram.firebaseio.com/")
+        let ref = FIRDatabase.database().reference()
        
         let postsReference = ref.child("posts").childByAutoId()
         postsReference.updateChildValues(values, withCompletionBlock: { (err, ref) in

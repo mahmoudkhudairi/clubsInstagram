@@ -11,6 +11,7 @@ import Firebase
 class FeedVC: UIViewController {
     //var uid = FIRAuth.auth()?.currentUser?.uid
     var posts = [Post]()
+    
     var following = [String]()
     var postsUsersIds = [String]()
     @IBOutlet weak var postsTableView: UITableView!{
@@ -108,7 +109,7 @@ class FeedVC: UIViewController {
                 self.posts.append(post)
                 self.postsUsersIds.append(post.userId!)
                 print("postUserIdsArray: ",self.postsUsersIds)
-                
+               
                 
                 
                 
@@ -121,7 +122,6 @@ class FeedVC: UIViewController {
             
         }, withCancel: nil)
     }
-    
 }
 
 extension FeedVC: UITableViewDelegate,UITableViewDataSource{
@@ -140,7 +140,6 @@ extension FeedVC: UITableViewDelegate,UITableViewDataSource{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.cellIdentifier, for: indexPath) as? PostCell else {  return UITableViewCell()}
         
         let post = posts[indexPath.row]
-        
         cell.userNameLabel.text = post.userName
         if let userProfileImageUrl = post.userProfileImageUrl {
             cell.userProfileImageView.loadImageUsingCacheWithUrlString(userProfileImageUrl)

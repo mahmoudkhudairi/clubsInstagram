@@ -70,9 +70,6 @@ class SignUpVC: UIViewController {
             print("Form is not valid")
             return
         }
-        
-      
-        
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
             if error != nil {

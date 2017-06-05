@@ -84,12 +84,12 @@ class CommentsVC: UIViewController,UITextFieldDelegate {
          dismiss(animated: true, completion: nil)
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveTextField(textField: commentTextField, moveDistance: -250, up: true)
+        moveTextField(textField: commentTextField, moveDistance: -255, up: true)
         
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        moveTextField(textField: commentTextField, moveDistance: -250, up: false)
+        moveTextField(textField: commentTextField, moveDistance: -255, up: false)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
